@@ -1,0 +1,241 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<style type="text/css">
+			body,html{
+				margin:0;
+				padding: 0;
+				height: 100%;
+				font-family: Hiragino Sans GB,STHeiti,Microsoft Yahei,sans-serif !important;
+			}
+			ul,li{
+				padding: 0;
+				margin: 0;
+			}
+			#container{
+				box-sizing: border-box;
+				height: 100%;
+				width: 100%;
+				z-index: 1;
+				padding: 20px;
+			}
+			#desc{
+				padding: 0;
+				margin-left: 40px;
+				display: inline;
+			}
+			#btn{
+				display: inline-block;
+				padding: 0;
+				margin: 0;
+				margin-left:10px;
+				font-size:15px;
+				color:white;
+				-webkit-appearance: none;
+				height: 45px;
+				line-height: 45px;
+				letter-spacing: 1px;
+				width:180px;
+				border: 0;
+				background: #2dbe60;
+				border-radius: 4px;
+			}
+			#btn:hover{
+				transition: background-color 0.2s;
+				background: #36a85e;
+				cursor: pointer;
+			}
+			#content{
+				margin-bottom: 30px;
+				height: 300px;
+				width:500px;
+				background-color: #71dbfa;
+				border: 2px solid whitesmoke;
+			}
+			.overlay{
+				position: absolute;
+				top:0;
+				right: 0;
+				height: 100%;
+				width: 100%;
+				display: none;
+				float: right;
+				background:rgba(111,111,111,0.6) ;
+			}
+			.overlay .set{
+				position: absolute;
+				box-sizing: border-box;
+				padding:20px;
+				top: 50%;
+				right: 50%;
+				margin-top: -155px;
+				margin-right:-205px;
+				width:400px;
+				height: 300px;
+				background-color: white;
+				border: 16px solid #ec704d;
+			}
+			.set ul, .set li{
+				list-style: none;
+			}
+			.set ul{
+				display: inline-block;
+			}
+			.setter{
+				display: block;
+				margin:15px 0 0 30px;
+			}
+			.set span{
+				vertical-align: top; /*让文字跟图片一样向顶部对齐*/
+				display: inline-block;
+				width:100px;
+				line-height:42px ;
+			}
+			.setter ul{
+				margin-left: 20px;
+			}
+			.setter li{
+				line-height: 40px;
+				text-align: center;
+				display: inline-block;
+				height:40px;
+				width:40px;
+				font-size:13px;
+				border: 1px solid lightgray;
+				border-radius: 4px;
+				background: #71dbfa;
+				color: white;
+			}
+			.setter li:hover{
+				background: #ff9307;
+				cursor: pointer;
+			}
+			#set_bd li:nth-child(1){
+				background: #fdd80e;
+				color: white;
+			}
+			#set_bd li:nth-child(1):hover{
+				background: #ffc90e;
+				cursor: pointer;
+			}
+			#set_bd li:nth-child(2){
+				background: #96e120;
+				color: white;
+			}
+			#set_bd li:nth-child(2):hover{
+				background: #58c531;
+				cursor: pointer;
+			}
+			#set_bd li:nth-child(3){
+				background: #fb5c7d;
+				color: white;
+			}
+			#set_bd li:nth-child(3):hover{
+				background: #ff2a56;
+				cursor: pointer;
+			}
+			#reset,#confirm{
+				display: inline-block;
+				width:80px;
+				height: 30px;
+				background: #fe6161;
+				font-size: 12px;
+				color: white;
+				margin-left: 50px;
+				margin-top: 22px;
+				text-align: center;
+				line-height: 30px;
+			}
+			.set ul li:nth-child(4):hover{
+				cursor: pointer;
+			}
+			.set ul li:nth-child(5):hover{
+				cursor: pointer;
+			}
+		</style>
+	</head>
+	<body>
+		<div id="container">
+			
+			<div id="content"></div>
+			<p id="desc">点击左边按钮设置元素样式</p>
+			<button id="btn">点此设置</button>
+		</div>
+		<div class="overlay">
+			<div class="set">
+				<ul>
+					<li class="setter">
+						<span>请选择背景:</span>
+						<ul id="set_bd">
+							<li>黄</li>
+							<li>绿</li>
+							<li>红</li>
+						</ul>
+					</li>
+					<li class="setter">
+						<span>请选择高(px):</span>
+						<ul id="set_height">
+							<li>200</li>
+							<li>300</li>
+							<li>400</li>
+						</ul>
+					</li>
+					<li class="setter">
+						<span>请选择宽(px):</span>
+						<ul id="set_width">
+							<li>200</li>
+							<li>300</li>
+							<li>400</li>
+						</ul>
+					</li>
+					<li id="reset">重置</li>
+					<li id="confirm">确认</li>
+				</ul>
+			</div>
+		</div>
+		<script type="text/javascript">
+			let reset = document.getElementById('reset');
+			let confirm = document.getElementById('confirm');
+			let overlay = document.getElementsByClassName('overlay')[0];
+			let btn = document.getElementById('btn');
+			let content = document.getElementById('content');
+			let oldStyle = [ content.style.background, content.style.height, content.style.width];
+			/*setter*/
+			let set = document.querySelectorAll('.setter ul');
+			let set_1 = set[0].getElementsByTagName('li');
+			let set_2 = set[1].getElementsByTagName('li');
+			let set_3 = set[2].getElementsByTagName('li');
+
+			btn.onclick = ()=>{
+				overlay.style.display='block';
+			}
+			confirm.onclick = () => {
+				overlay.style.display = 'none';
+			}
+			reset.onclick = ()=>{
+				content.style.background = oldStyle[0];
+				content.style.height = oldStyle[1];
+				content.style.width = oldStyle[2];
+			}
+		
+			set_1[0].onclick = ()=>{
+				content.style.background =  '#fdd80e';
+			}
+			set_1[1].onclick = ()=>{
+				content.style.background =  '#96e120';
+			}
+			set_1[2].onclick = ()=>{
+				content.style.background =  '#fb5c7d';
+			}
+			let size = [200,300,400];
+			for ( let i=0;i<set_2.length;i++){
+				set_2[i].onclick = ()=>{content.style.height = String(size[i]) + 'px';}
+				set_3[i].onclick = ()=>{content.style.width = String(size[i]) + 'px';}
+			}
+				
+			
+		</script>
+	</body>
+</html>

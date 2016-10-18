@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<style>
+			html,body{
+				margin: 0;
+				padding: 0;
+				font-family: "Lantinghei SC";
+				font-size:12px;
+				height: 100%;
+				
+			}
+			p{
+				margin:0;
+			}
+			header, footer{
+				color: white;
+				height: 60px;
+				background: #474747;
+				text-align: center;
+				line-height: 60px;
+			}
+			header{
+				text-align:left;
+				padding-left: 60px;
+				font-size: 16px;
+			}
+			footer{
+				clear:both;
+			}
+			#picWrapper{
+				height: calc(100% - 120px);
+				width: 100%;
+				background: rgb(121,121,121);
+				align-items: center;
+				overflow: auto;
+				position: relative;
+			}
+			#pic{
+				position: absolute;
+				top: 50%;
+				left: 50%;
+				transform: translate(-50%, -50%);
+				width: calc(100% - 300px);
+				display: block;	
+			}
+			.btn{
+			    width: 100px;
+			    background: rgb(235,172,77);
+			    border: 0;
+			    outline: 0;
+			    cursor: pointer;
+			    height: calc(100% - 120px);
+			    position:relative;
+			    border-radius: 3px;
+			}
+			.btn:active{
+				background: rgb(235,72,77);
+			}
+			#btnPre{
+				margin-left: -100%;
+			}
+			#btnNext{
+				margin-left: -100px;
+			}
+			#btnPre:after{
+				content: "";
+				width:0;
+			    height: 0;
+			    border-right:26px solid #f1f1f1;
+				border-top:30px solid transparent;
+			    border-bottom: 30px solid transparent;
+			    position: absolute;
+			    left:27px;
+			    top:calc( 50% - 30px);
+			    cursor: pointer;
+			}
+			#btnNext:after{
+				content: "";
+				width:0;
+			    height: 0;
+			    border-left:26px solid #f1f1f1;
+				border-top:30px solid transparent;
+			    border-bottom: 30px solid transparent;
+			    position: absolute;
+			    left:40px;
+			    top:calc( 50% - 30px);
+			    cursor: pointer;
+			}
+			.fl{
+				float:left;
+			}
+		</style>
+		<script type="text/javascript">
+			window.onload=function(){
+				var pre = document.getElementById('btnPre');
+				var next = document.getElementById('btnNext');
+				var pic = document.getElementById('pic');
+				var wrap = document.getElementById('picWrapper');
+				var num = 0;
+				var imgArr = ['dasdsdadad','bvcbcvbcvbcv','32432434232dasdasdasdas','fdsfsdfsdgdfbgfnjtj','rtgyregdeger','nbvncbvgtry']
+				console.dir(imgArr);
+				
+				next.onclick=function(){
+					num++;
+					console.log(pic.src);
+					if(num>imgArr.length-1){
+						num = imgArr.length-1;
+						alert('这是最后一张');
+					}
+					pic.src = 'img2/' + imgArr[num] + '.jpg';
+				}
+				
+				pre.onclick=function(){
+					num--;
+					console.log(pic.src);
+					if( num < 0){
+						num = 0;
+						alert('前面没有图片了');
+					}
+					pic.src = 'img2/' + imgArr[num] + '.jpg';
+				}
+			}
+		</script>
+	</head>
+	<body>
+		<header><p>图片切换示例</p></header>
+			<div class="fl" id="picWrapper"><img id="pic" src="img/1.jpg" /></div>
+			<div class="btn fl" id="btnPre"></div>
+			<div class="btn fl" id="btnNext"></div>
+		<footer><p>@kylewh</p></footer>
+		
+	</body>
+</html>

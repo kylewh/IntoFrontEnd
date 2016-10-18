@@ -1,0 +1,237 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+	</head>
+	<style>
+		html,body{
+			margin: 0;
+			padding: 0;
+			font-family: "Lantinghei SC";
+			font-size:12px;
+			height: 100%;
+			min-height: 650px;
+			min-width: 900px;
+		}
+		header, footer{
+			color: white;
+			line-height: 60px;
+			height: 60px;
+			background: #5a5a5a;
+			text-align: center;
+		}
+		.box{
+			height:calc(100% - 120px);
+		}
+		.fl{
+			float:left;
+		}
+		#middle{
+			width:100%;
+			background: rgb(253,240,142);
+			text-align: center;
+			font-size: 16px;
+			color: lightslategrey;
+		}
+		#middle .inner_middle{
+			margin:0 200px 0 300px;
+			box-sizing: border-box;
+			padding:50px;
+			overflow: hidden;
+		
+		}
+		#left{
+			width:300px;
+			background: rgb(192,213,77);
+			margin-left: -100%;
+		}
+		#left ul{
+			margin: 0;
+			padding: 0;
+			list-style: none;
+			cursor: pointer;
+		}
+		#left li{
+			width:300px;
+			margin: 5px 0;
+			padding: 15px 0;
+			line-height: 60px;
+			font-size: 20px;
+			color: dimgrey;
+			text-align: center;
+			background: ;
+		}
+		#left li:first-child{
+			margin-top: 0;
+		}
+		#left li:hover{
+			background: rgb(232,255,102);
+			color: ;
+		}
+		#right{
+			width:200px;
+			background: rgb(200,228,226);
+			margin-left:-200px;
+		}
+		header{
+			font-family: "comic sans ms";
+			font-size:16px;	
+		}
+		footer{ /*中间部分都是浮动元素，所以需要清除浮动 clear:both or 给中间一个容器然后用伪类清除。*/
+			clear: both;	
+		}
+		
+	</style>
+	<body>
+		<header>@navBar.</header>
+		<div class="box fl" id="middle">
+			<article class="inner_middle" style="display: block;">
+				<p>
+					Hi, i should be on the center.Hi, i should be on the center.Hi, 
+					i should be on the center.Hi, i should be on the center.
+					Hi, i should be on the center.
+					Hi, i should be on the center.
+					Hi, i should be on the center.
+					Hi, i should be on the center.
+					Hi, i should be on the center.
+					Hi, i should be on the center.
+					Hi, i should be on the center.
+					Hi, i should be on the center.
+					Hi, i should be on the center.
+					Hi, i should be on the center.
+					Hi, i should be on the center.
+					Hi, i should be on the center.
+				</p>
+				<p style="font-size: 40px;">
+					This is the home page :)
+				</p>
+			</article>
+			<article class="inner_middle">
+				<p>
+					Hi, i should be on the center.Hi, i should be on the center.Hi, 
+					i should be on the center.Hi, i should be on the center.
+					Hi, i should be on the center.
+					Hi, i should be on the center.
+					Hi, i should be on the center.
+					Hi, i should be on the center.
+					Hi, i should be on the center.
+					Hi, i should be on the center.
+					Hi, i should be on the center.
+					Hi, i should be on the center.
+					Hi, i should be on the center.
+					Hi, i should be on the center.
+					Hi, i should be on the center.
+					Hi, i should be on the center.
+				</p>
+				<p style="font-size: 40px">
+					And this is the second page :)
+				</p>
+			</article>
+			<article class="inner_middle">
+				<p>
+					Hi, i should be on the center.Hi, i should be on the center.Hi, 
+					i should be on the center.Hi, i should be on the center.
+					Hi, i should be on the center.
+					Hi, i should be on the center.
+					Hi, i should be on the center.
+					Hi, i should be on the center.
+					Hi, i should be on the center.
+					Hi, i should be on the center.
+					Hi, i should be on the center.
+					Hi, i should be on the center.
+					Hi, i should be on the center.
+					Hi, i should be on the center.
+					Hi, i should be on the center.
+					Hi, i should be on the center.
+				</p>
+				<p style="font-size: 40px">
+					This is the third page :)
+				</p>
+			</article>
+			<article class="inner_middle">
+				<p>
+					Hi, i should be on the center.Hi, i should be on the center.Hi, 
+					i should be on the center.Hi, i should be on the center.
+					Hi, i should be on the center.
+					Hi, i should be on the center.
+					Hi, i should be on the center.
+					Hi, i should be on the center.
+					Hi, i should be on the center.
+					Hi, i should be on the center.
+					Hi, i should be on the center.
+					Hi, i should be on the center.
+					Hi, i should be on the center.
+					Hi, i should be on the center.
+					Hi, i should be on the center.
+					Hi, i should be on the center.
+				</p>
+				<p style="font-size: 40px">
+					And this is the fourth page :)
+				</p>
+			</article>
+		</div>
+		<nav class="box fl" id="left">
+			<ul>
+				<li style="background: rgb(232,255,102);">首页</li>
+				<li>item2</li>
+				<li>item3</li>
+				<li>item4</li>
+			</ul>
+		</nav>
+		<section class="box fl" id="right"></section>
+		<footer>@双飞翼布局</footer>
+		<script type="text/javascript">
+			window.onload = function(){
+				var getLi = document.querySelectorAll('ul>li');
+				var getArticle = document.querySelectorAll('.inner_middle');
+
+				/*方法1*/
+//				var last = 0;
+//				
+//				for(var i = 0; i < getLi.length; i++){
+//					getLi[i].index = i;					
+//					getLi[i].onclick = function(){
+//						if( last != this.index){
+//							getArticle[this.index].style.display = 'block';
+//							this.style.background='rgb(232,255,102)';
+//							getLi[last].style.background = '';
+//							getArticle[last].style.display = 'none';
+//							last = this.index;
+//							
+//						}
+//					}
+//				}
+
+				/*方法2 better 不需要像方法1一样考虑到last和this.index相等的特殊情况了*/ 
+				var last = getLi[0];
+				
+				for (var i = 0; i < getLi.length; i++){
+					getLi[i].index = i; // 类数组找下标的常用处理方法
+					getLi[i].onclick = function(){
+						last.style.background = '';
+						this.style.background = 'rgb(232,255,102)';
+						getArticle[last.index].style.display = 'none';
+						getArticle[this.index].style.display = 'block';
+						last = this;
+					}
+				}
+				
+				/*方法3 全清，再this给style添加。【简单粗暴】 这种方法性能上其实不如上种 当选择元素较多时*/
+				
+//				for (var i = 0; i < getLi.length; i++){
+//					getLi[i].index = i; 
+//					getLi[i].onclick = function(){ //点击一次的时候把当前的样式all clear
+//						for (var i = 0; i < getLi.length; i++){
+//							getLi[i].style.background='';
+//							getArticle[i].style.display='none';
+//						}
+//						//给当前按钮添加背景，给当前div设置display:block；
+//						this.style.background = 'rgb(232,255,102)';
+//						getArticle[this.index].style.display = 'block';
+//					}
+//				}
+			}
+		</script>
+	</body>
+</html>

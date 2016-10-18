@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<style type="text/css">
+			body{
+				background: #3a3a3a;
+			}
+			ul,li{
+				list-style: none;
+			}
+			#list{
+				width: 40px;
+			}
+			#link{
+				text-decoration: none;
+				color: whitesmoke;
+				display: block;
+				height: 30px;
+				/*width:100%;*/
+			}
+			#lis_ul{
+				display: none;
+				background: rgba(255,255,255,0.2);
+				width:100px;
+				text-align: center;
+				margin: 0;
+				padding: 0;
+				border-collapse:collapse;
+				border: 1px solid rgba(255,255,255,0.5);
+				border-radius:3px ;
+			}
+			#lis_ul li{
+				height:30px;
+				color:lightgoldenrodyellow;
+				line-height: 30px;	
+			}
+			#lis_ul li:hover{
+				background: white;
+				color:dimgrey;
+			}
+		</style>
+	</head>
+	<body>
+		<ul>
+			<li id="list">
+				<a href="#" id="link">微博</a>
+				<ul id="lis_ul">
+					<li>私信</li>
+					<li>评论</li>
+					<li>@我</li>
+				</ul>
+			</li>
+		</ul>
+		<script type="text/javascript">
+			/*
+			 * 知识点 onmouseover 鼠标在元素上方时事件 
+			 * 		 onmouseout 鼠标离开元素上访时事件
+			 * 
+			 */
+			let list = document.getElementById('list');
+			let list_ul = document.getElementById('lis_ul');
+			list.onmouseover = ()=>{
+				list.style.color = '#fac73e';
+				list_ul.style.display = 'block';
+			};
+			list.onmouseout = ()=>{
+				list.style.color = 'white';
+				list_ul.style.display = 'none';
+			}
+			
+		</script>
+	</body>
+</html>
