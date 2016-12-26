@@ -30,7 +30,7 @@
 3. **E：active** 选择E匹配的元素，且元素被激活
 4. **E：hover** 匹配元素鼠标悬停时
 5. **E：focus** 匹配元素获得焦点时
-6. 锚点伪类设置需要遵循“爱恨原则”：<span id=”LoVeHAte">**LoVe/HAte**</span>, 即顺序为：link-visited-hover-active. 这是为什呢？这涉及到**[选择器优先级](#priority)**(点击跳转)问题。首先一个结论：它们4个的特殊性值一样，所以遵循在后面出现的具有更高优先级的原则。那么来思考一个a链接的点击过程： 1.未点击(**E: link**) 2.点击 (**E:hover - E:active**) 3.点击完毕(**E:visited**),在点击事件完成后的显示结果里过程3造成的结果影响下一个点击事件发生时的原始状态。如果我们打乱顺序进行样式设置：
+6. 锚点伪类设置需要遵循“爱恨原则”：<a name=”LoVeHAte">**LoVe/HAte**</a>, 即顺序为：link-visited-hover-active. 这是为什呢？这涉及到**[选择器优先级](#priority)**(点击跳转)问题。首先一个结论：它们4个的特殊性值一样，所以遵循在后面出现的具有更高优先级的原则。那么来思考一个a链接的点击过程： 1.未点击(**E: link**) 2.点击 (**E:hover - E:active**) 3.点击完毕(**E:visited**),在点击事件完成后的显示结果里过程3造成的结果影响下一个点击事件发生时的原始状态。如果我们打乱顺序进行样式设置：
 
 ```css
 :active {
@@ -102,7 +102,7 @@ input:checked + label{
 
 [点击查看demo效果](http://js.jirengu.com/juqiq/3/edit?html,output)
 
-# <span id="structure_s">结构伪类选择器<span>
+# <a name="structure_s">结构伪类选择器</a>
 1. **E:first-child**： 作为父元素的第一个子元素的元素E,这里有两个条件： 第一个子元素，且是元素E。
 2. **E：last-child**: 选择最后一个，如上同理。使用场景：导航条里每个导航项目我们想设置**右边框**以示区分，但是最后一个不想设置，就可以用last-child进行覆写。 博客的最后一个post也可以不用margin-bottom, 同理也可以用last-child.
 3. **E F：nth-child(n)**: 双重条件： E的子元素第N个，元素是F。如果E的第N个不是F,不会生效。
@@ -247,7 +247,7 @@ a[herf^=http]::after{
 
 使用场景，举个例子：比如想显示对应链接的文件类型：`a[href$="exe"]::after`,`a[href$="pdf"]::after`，然后就可以给其添加对应文件类型的icon啦。
 
-# <span id="priority">优先级问题</span>
+# <a name="priority">优先级问题</a>
 每种选择器是具有特殊性的，通过计算选择器的特殊性值，最高者即具有最高优先级
 #### 特殊性值的计算
 首先列出特殊性权重的排名：
