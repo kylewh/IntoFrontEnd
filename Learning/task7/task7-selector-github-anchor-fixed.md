@@ -264,6 +264,6 @@ a[herf^=http]::after{
 1. 有`!important`的话，直接逾越所有特殊性，置为优先级首位。   
 2. 来源排序：    
 
-![0_1477611287148_upload-3695ec13-9282-48d5-bac8-8a6073cf4a28](http://7xpvnv.com2.z0.glb.qiniucdn.com/a3c41fa5-0e0e-42b6-9e9c-45c3dac122fb) 
+![0_1477611287148_upload-3695ec13-9282-48d5-bac8-8a6073cf4a28](http://7xpvnv.com2.z0.glb.qiniucdn.com/a3c41fa5-0e0e-42b6-9e9c-45c3dac122fb)    
 如果来源排序排名高的获胜。   （比如我们覆写浏览器默认样式就是利用来源排序）
 3. 按顺序排序，如果两个规则的**权重、来源和特殊性完全相同**，那么在样式表中**后出现的一个会胜出**。
