@@ -1,0 +1,284 @@
+/* css reset  */
+html,
+body,
+div,
+span,
+applet,
+object,
+iframe,
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+p,
+blockquote,
+pre,
+a,
+abbr,
+acronym,
+address,
+big,
+cite,
+code,
+del,
+dfn,
+em,
+img,
+ins,
+kbd,
+q,
+s,
+samp,
+small,
+strike,
+strong,
+sub,
+sup,
+tt,
+var,
+b,
+u,
+i,
+center,
+dl,
+dt,
+dd,
+ol,
+ul,
+li,
+fieldset,
+form,
+label,
+legend,
+table,
+caption,
+tbody,
+tfoot,
+thead,
+tr,
+th,
+td,
+article,
+aside,
+canvas,
+details,
+embed,
+figure,
+figcaption,
+footer,
+header,
+hgroup,
+menu,
+nav,
+output,
+ruby,
+section,
+summary,
+time,
+mark,
+audio,
+video {
+	margin: 0;
+	padding: 0;
+	border: 0;
+	font-size: 100%;
+	font: inherit;
+	vertical-align: baseline;
+}
+	/* HTML5 display-role reset for older browsers */
+article,
+aside,
+details,
+figcaption,
+figure,
+footer,
+header,
+hgroup,
+menu,
+nav,
+section {
+	display: block;
+}
+body {
+	line-height: 1;
+}
+ol,
+ul {
+	list-style: none;
+}
+blockquote,
+q {
+	quotes: none;
+}
+blockquote:before,
+blockquote:after,
+q:before,
+q:after {
+	content: '';
+	content: none;
+}
+table {
+	border-collapse: collapse;
+	border-spacing: 0;
+}
+/* rest over */
+body {
+	background-color: #fcf9fb;
+}
+@font-face {
+	font-family:pingfangCNNormal;
+	src: url(font/pingfang_cn_normal.ttf);
+}
+
+div {
+	box-sizing: border-box;
+}
+nav{
+	min-width: 790px;
+	width: 100%;
+	font-size: 10px;
+	font-family:pingfangCNNormal;
+	color: white;
+	background-color:black ;
+}
+nav #logo{
+	margin:0 50px 0 20px;
+	height: 40px;
+}
+nav #title{
+	line-height: 40px;
+}
+#iphone {
+	margin: 0 auto;
+	padding-top: 151px;
+	width: 790px;
+	height: 740px;
+	background-image: url(img/iphone_hw1_3.jpg);
+	background-repeat: no-repeat;
+	overflow: hidden;
+}
+#iphone .icon {
+	width: 46px;
+	height: 46px;
+	background-color: #009ddc;
+	border: 2px solid #009ddc;
+	border-radius: 50%;
+}
+#iphone #screen {
+	margin: 0 auto;
+	
+	width: 270px;
+	height: 377px;
+}
+#iphone #operator {
+	margin: 0 auto;
+	width: 270px;
+	height: 60px;
+}
+#screen #box {
+	height: 100%;
+	overflow: auto;
+	background: #f9f7f7;
+}
+#box .wrapper{
+	position: relative;
+	border-radius: 5px;
+	padding: 10px;
+	box-shadow: 1px 1px 3px #e6e6e6;
+}
+#box .wrapper:after {
+	content: ".";
+	display: block;
+	height: 0;
+	clear: both;
+	visibility: hidden;
+}
+/* 伪元素小角 */
+#box #kyleWrapper:before {
+	content: "";
+	width: 0;
+	height: 0;
+	border-right: 10px solid #13d958;
+	border-top: 7px solid transparent;
+	border-bottom: 7px solid transparent;
+	position: absolute;
+	left: -8px;
+	top: 8px;
+}
+#box #kaivonWrapper:before {
+	content: "";
+	width: 0;
+	height: 0;
+	border-left: 10px solid #f8dc1f;
+	border-top: 7px solid transparent;
+	border-bottom: 7px solid transparent;
+	position: absolute;
+	right: -8px;
+}
+#box #kyleWrapper {
+	margin: 10px 20px 10px 10px;
+	background: #00ce48;	
+}
+#box #kaivonWrapper {
+	margin: 10px 10px 10px 20px;
+	background: #f8dc1f;
+}
+.wrapper .comment{
+	word-break: break-all;
+}
+#kyleWrapper #kyleComment {
+	margin: 3px 0px 0px 56px;
+	font-family:pingfangCNNormal;
+	font-size: 12px;
+	color: white;
+}
+#kaivonWrapper #kaivonComment {
+	margin: 3px 56px 0px 0px;
+	font-family:pingfangCNNormal;
+	font-size: 12px;
+}
+#operator #changeIcon {
+	margin: 5px;
+}
+#operator #text {
+	margin-top: 7px;
+	margin-left: 2px;
+	width: 156px;
+	height: 40px;
+	border: 1px solid lightgrey;
+	border-radius: 3px;
+	resize: none;
+	outline: none;
+	overflow: hidden;
+}
+#operator #btn {
+	margin-top: 34px;
+	margin-left: 8px;
+	font-family: simhei;
+	font-size: 14px;
+	color: #9b9b9b;
+}
+.fl {
+	float: left;
+}
+.rl {
+	float: right;
+}
+/* Change color of placeholder */
+*::-webkit-input-placeholder {
+	color: darkgray;
+	vertical-align: center;
+	font-family:pingfangCNNormal;
+}
+*:-moz-placeholder {
+	color: darkgray;
+	font-family:pingfangCNNormal;
+}
+*:-ms-input-placeholder {
+	/* IE10+ */
+	color: darkgray;
+	font-family:pingfangCNNormal;
+}
+/* end of placholder */

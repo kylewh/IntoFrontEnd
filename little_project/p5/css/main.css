@@ -1,0 +1,96 @@
+#stage {
+	background-image: url(../img/background.png);
+	height: 568px;
+	max-width: 320px;
+	margin: 0 auto;
+	overflow: hidden;
+	position: relative;
+}
+
+#stage #start {
+	position: absolute;
+	width: 100%;
+	height: 100%;
+}
+
+#start figure {
+	background: url(../img/start.png) no-repeat;
+	background-size: contain;
+	height: 200px;
+	width: 95%;
+	margin: 100px auto;
+}
+
+#start span {
+	position: absolute;
+	width: 100px;
+	left: 50%;
+	margin-left: -50px;
+	text-align: center;
+	line-height: 30px;
+	border: 1px solid #000000;
+	border-radius: 10px;
+}
+
+#start span:hover {
+	box-shadow: 0 0 1px 1px #5C5C5C;
+	cursor: pointer;
+}
+
+#stage #player {
+	position: absolute;
+	width: 66px;
+	height: 82px;
+	z-index: 3;
+}
+
+#stage .bullet {
+	position: absolute;
+	width: 6px;
+	height: 14px;
+	z-index: 2;
+}
+
+#stage .enemies {
+	position: absolute;
+	width: 34px;
+	height: 24px;
+	z-index: 2;
+}
+
+#stage #end {
+	display: none;
+	width: 75%;
+	margin: 180px auto;
+	height: auto;
+	text-align: center;
+	background-color: #d7ddde;
+	border: 1px gray solid;
+	border-radius: 5px;
+	z-index: 10;
+}
+
+#end p {
+	line-height: 35px;
+}
+
+#end #panel {
+	border-top: 1px gray solid;
+	border-bottom: 1px gray solid;
+	width: 100%;
+	height: 75px;
+	line-height: 80px;
+}
+
+button {
+	background: none;
+	border: 1px solid gray;
+	border-radius: 20px;
+	padding: 5px 20px;
+	cursor: pointer;
+	margin: 10px auto;
+}
+
+button:hover {
+	border: 1px solid black;
+}

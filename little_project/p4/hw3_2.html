@@ -1,0 +1,285 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+	</head>
+	<style>
+		*{
+			margin: 0;
+			padding: 0;
+		}
+		html,body{
+			background:#fad3d2 ;
+		}
+		@font-face {
+			font-family:pingfangCNLight;
+			src: url(font/pingfang_cn_light.ttf);
+		}
+		@font-face {
+			font-family:pingfangENGLight;
+			src: url(font/pingfang_eng_light.ttf);
+		}
+		#date{
+			width:960px;
+			height:600px;
+			background: url(img/cal.jpg) no-repeat left center;
+			margin: 40px auto;
+			border-radius: 18px;
+			background-color: white;
+			box-shadow: #fabfc0 11px 12px 18px;
+			position: relative;
+		}
+		#date .time1{
+			font-family: pingfangENGLight;
+			position: absolute;
+			top:50px;
+			font-size:60px;
+			color: white;
+			left:50px;
+		}
+		#date .time2{
+			position: absolute;
+			top:136px;
+			left: 57px;
+			font-size:20px;
+			color: white;
+			font-family: pingfangCNLight;
+		}
+		#date .time3{
+			position: absolute;
+			font-family: pingfangENGLight;
+			font-size:50px;
+			color:#ffbab7;
+			right:240px;
+			top:100px;
+			width: 320px;
+		}
+		#date .time3 #up{
+			position: absolute;
+			top:11px;
+			left:330px;
+			border-bottom: 20px solid #ffbab7;
+			border-left: 12px solid transparent;
+			border-right: 12px solid transparent;
+		}
+		#date .time3 #down{
+			position: absolute;
+			top:39px;
+			left:330px;
+			border-top: 20px solid #ffbab7;
+			border-left: 12px solid transparent;
+			border-right: 12px solid transparent;
+		}
+		#date .time3:hover{
+			cursor: pointer;
+		}
+		#date .time3 span:active{
+			cursor: pointer;
+			color:#ff4f47;
+		}
+		#date .time4{
+			position: absolute;
+			font-size:20px;
+			font-family: pingfangENGLight;
+			right:20px;
+			top:20px;
+			color:#ffbab7;
+		}
+		#date .number{
+			font-size: 0;
+			position: absolute;
+			bottom: 25px;
+			right:38px;
+			width:calc(75px * 7);
+			font-size: 0;
+		}
+		#date ul{
+			font-family: pingfangCNLight;
+			position: absolute;
+			right:36px;
+			top:192px;
+			font-size: 0;
+		}
+		#date ul li, .number span{
+			width: 75px;
+			height: 55px;
+			font: 22px/55px pingfangENGLight;
+			color: #adadad;
+			text-align: center;
+			display: inline-block;
+		}
+		
+		.number span.color{
+			color: #e8e8e8;
+		}
+		.number span:hover{
+			box-shadow: 0px 0px 10px #ffe1e0;
+			border-radius: 5px;
+			color: #ffb321;
+		}
+		.number span.active{
+			background: #ffbab7;
+			border-radius: 5px;
+			color: white;
+		}
+	</style>
+	<body>
+		<div id="date">
+			<div class="time1">00:00:00</div>
+			<div class="time2"></div>
+			<div class="time3">
+				<span id="month">October</span>
+				<div><span id="up"></span><span id="down"></span></div>
+			</div>
+			<div class="time4">2016</div>
+			<ul>
+				<li>MON</li>
+				<li>TUE</li>
+				<li>WED</li>
+				<li>THU</li>
+				<li>FRI</li>
+				<li>SAT</li>
+				<li>SUN</li>
+			</ul>
+			<div class="number">
+				<span class="color">1</span>
+		    		<span class="color">2</span>
+		    		<span class="color">3</span>
+		    		<span>4</span>
+		    		<span>5</span>
+		    		<span class="active">6</span>
+		    		<span>7</span>
+		    		<span>8</span>
+		    		<span>9</span>
+		    		<span>10</span>
+		    		<span>11</span>
+		    		<span>12</span>
+		    		<span>13</span>
+		    		<span>14</span>
+		    		<span>15</span>
+		    		<span>16</span>
+		    		<span>17</span>
+		    		<span>18</span>
+		    		<span>19</span>
+		    		<span>20</span>
+		    		<span>21</span>
+		    		<span>22</span>
+		    		<span>23</span>
+		    		<span>24</span>
+		    		<span>25</span>
+		    		<span>26</span>
+		    		<span>27</span>
+		    		<span>28</span>
+		    		<span>29</span>
+		    		<span>30</span>
+			</div>
+		</div>
+		<script type="text/javascript">
+			window.onload=function(){
+				let time1 = document.getElementsByClassName('time1')[0];
+				let time2 = document.getElementsByClassName('time2')[0];
+				let time4 = document.getElementsByClassName('time4')[0];
+				let strongMonth = document.querySelector('.time3 #month');
+				let number = document.querySelector(".number");
+				let btns = document.querySelectorAll(".time3 span");
+				
+				timeNow();
+				setInterval(timeNow,1000);
+				
+				function carryFormat(num){
+					return num<10?'0'+num:num;
+				}
+				function chineseWeekFormat(num){
+					return ['日','一','二','三','四','五','六'][num];
+				}
+				function englishMonthFormat(num){
+					return ['January','Febuary','March','April','May','June','July','August','Semptember','October','November','December'][num];
+				}
+				function timeNow(){
+					let d=new Date();
+					time1.innerHTML=carryFormat(d.getHours())+":"+carryFormat(d.getMinutes())+":"+carryFormat(d.getSeconds());
+					return d;
+				}
+				
+				time2.innerHTML = timeNow().getFullYear()+'年'+(timeNow().getMonth()+1)+'月'+timeNow().getDate()+'日，星期'+chineseWeekFormat(timeNow().getDay());
+				
+				//获取某个月的第一天是星期几
+				function getDayFirstWeek(year, month){
+					return new Date(year,month-1,1).getDay();
+				}
+				//获取这个月的最后一天(天数)
+				function getEndDayMonth(year, month){
+					return new Date(year,month,0).getDate();
+				}
+				
+				let d =new Date();
+				setDate(d);
+				function setDate(d){
+					
+					//这个月第一天是星期几
+					var dayFirstWeek = getDayFirstWeek(d.getFullYear(),d.getMonth()+1);
+					//上个月在日历的遗留数量
+					var endNum = dayFirstWeek - 1;
+					//这个月最后一天（共有多少天）
+					let dayEndThisMonth = getEndDayMonth(d.getFullYear(),d.getMonth()+1);
+					//上个月最后一天（共有多少天）
+					let dayEndLastMonth = getEndDayMonth(d.getFullYear(),d.getMonth());
+					
+					if(endNum==0){ //本月一号是星期一
+						endNum=7;		//上个月有7天在本月日历开头
+					}
+					if (endNum<0){
+						console.log('less than 0 right now： '+endNum);
+						endNum =6;
+					} //这里是个问题。 ===========================>原来周日是0！！！我曹！
+					
+					let numberInner = '';
+					let newMonth_DayFromOne = 1;
+					
+					
+					for(let i=0;i<42;i++){
+						if(i<endNum){ //上月遗留日期
+							numberInner='<span class="color">'+(dayEndLastMonth--)+'</span>'+numberInner 
+							//不断向前加（新标签放在前面）
+						}else if(i>=endNum+dayEndThisMonth){ //下月遗留日期
+							numberInner+='<span class="color">'+(newMonth_DayFromOne++)+'</span>';
+						}else{
+							let today=new Date().getDate()==(i+1-endNum)?'active':''; 
+							//i从0开始，加1后与日期同步，减去上月的遗留日期，则表示范畴为现在为本月日期与下月遗留的和，当其取值与本日日期相等的时候，锁定到对应的number给出颜色标记。
+							
+							console.log(i+1-endNum+" and "+today)
+							
+							//如果年、月对不上，则不是本月，不给予颜色标记。
+							if(d.getFullYear()!=new Date().getFullYear() || d.getMonth()!=new Date().getMonth()){
+								today='';
+							}
+							//本月日期添加。
+							numberInner+='<span class="'+today+'">'+(i+1-endNum)+'</span>';
+						}
+					}
+					
+					number.innerHTML = numberInner;
+					
+					strongMonth.innerHTML = englishMonthFormat(d.getMonth());
+					
+					time4.innerHTML = d.getFullYear();
+					
+				};
+				
+				//点击上个月
+				btns[1].onclick=function(){
+					d.setMonth(d.getMonth()-1);
+					setDate(d);
+				};
+				
+				//点击上个月
+				btns[2].onclick=function(){
+					d.setMonth(d.getMonth()+1);
+					setDate(d);
+				};
+				
+			};
+		</script>
+	</body>
+</html>

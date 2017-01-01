@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<style>
+			html,body{
+				height: 100%;
+				min-height: 640px;
+				background-color: #000;
+			}
+			*{
+				margin: 0;
+				padding: 0;
+			}
+			.slider{
+				overflow: hidden;
+				height: 640px;
+				width:1280px;
+				margin: 0 auto;
+				position: relative;
+			}
+			.holder{
+				position: absolute;
+				left:0;
+			}
+			.slide{
+				height: 640px;
+				width: 1280px;
+				float: left;
+			}
+			#slide-1{
+				background: url(img/1.jpg) no-repeat center center; 	
+			}
+			#slide-2{
+				background: url(img/2.jpg) no-repeat center center; 
+			}
+			#slide-3{
+				background: url(img/3.jpg) no-repeat center center; 
+			}
+			#slide-4{
+				background: url(img/4.jpg) no-repeat center center; 
+			}
+			#slide-5{
+				background: url(img/5.jpg) no-repeat center center; 
+			}
+			#slide-6{
+				background: url(img/6.jpg) no-repeat center center; 
+			}
+			#des{
+				height: 70px;
+				width: 100%;
+				background: rgba(0,0,0,0.6);
+				position: absolute;
+				bottom: 0px;
+				font-family: "Helvetica Neue", HelveticaNeue, Helvetica, TeXGyreHeros, FreeSans, "Nimbus Sans L", "Liberation Sans", Arial, sans-serif;
+				-webkit-font-smoothing: antialiased;
+				color: #fff;
+				text-indent: 20px;
+			}
+			span{
+				line-height: 40px;
+				font-size:25px;
+			}
+			#tabbtn ul{
+				position: absolute;
+				left:20px;
+				top:50%;
+				transform: translateY(-50%);
+			}
+			#tabbtn ul li{
+				display:block;
+				height: 14px;
+				width: 14px;
+				margin-bottom: 10px;
+				border-radius: 50%;
+				background-color:rgba(255,255,255,0.5);
+				cursor: pointer;
+			}
+			.content{
+				height: 1000px;
+			}
+		</style>
+	</head>
+	<body>
+		<div class="slider">
+			
+			<div class="holder">
+				<div class="slide" id="slide-1"></div>
+				<div class="slide" id="slide-2"></div>
+				<div class="slide" id="slide-3"></div>
+				<div class="slide" id="slide-4"></div>
+				<div class="slide" id="slide-5"></div>
+				<div class="slide" id="slide-6"></div>		
+			</div>
+			
+			<div id="des">
+				<span></span>
+				<p></p>
+			</div>
+			
+			<div id="tabbtn">
+				<ul>
+					<li></li>
+					<li></li>
+					<li></li>
+					<li></li>
+					<li></li>
+					<li></li>
+				</ul>
+			</div>
+
+		</div>
+		
+		<div class="content"></div>
+		<script src="move.js"></script>
+		<script type="text/javascript">
+			window.onload=function(){
+				let holder = document.getElementsByClassName('holder')[0];
+				let des = document.getElementById("des");
+				let btnLis = document.querySelectorAll('#tabbtn ul li');
+				console.log(btnLis);
+				let slider = document.getElementsByClassName('slider')[0];
+				
+				let n = 0;
+				let timer;				
+				let textArr= [
+				{"title":'Tokoyo',"content":'点击左侧圆点可跳至对应图片 鼠标移入可以停留观看，移出继续轮播'},
+				{"title":'Tokoyo',"content":'点击左侧圆点可跳至对应图片 鼠标移入可以停留观看，移出继续轮播'},
+				{"title":'Tokoyo',"content":'点击左侧圆点可跳至对应图片 鼠标移入可以停留观看，移出继续轮播'},
+				{"title":'Tokoyo',"content":'点击左侧圆点可跳至对应图片 鼠标移入可以停留观看，移出继续轮播'},
+				{"title":'Tokoyo',"content":'点击左侧圆点可跳至对应图片 鼠标移入可以停留观看，移出继续轮播'},
+				{"title":'Tokoyo',"content":'点击左侧圆点可跳至对应图片 鼠标移入可以停留观看，移出继续轮播'},
+				];
+				
+				for(let i=0; i<btnLis.length; i++){
+					btnLis[i].index = i;
+					btnLis[i].onclick = function(){
+						btnLis.forEach(function(singleLi){
+							singleLi.style.background = '';
+						})
+						btnLis[i].style.background = '#ffc22e';
+						holder.style.left = btnLis[i].index*(-1280)+'px';
+						n = i;
+					}
+				}
+				holder.innerHTML += holder.innerHTML;
+				
+				let slide = document.getElementsByClassName('slide');
+				let w = parseInt(getComputedStyle(slide[0]).width);
+				holder.style.width = w*slide.length + 'px';
+				btnLis[0].style.background = '#ffc22e';
+				des.innerHTML = '<span>'+textArr[0].title+'</span><p>'+textArr[0].content+'</p>';
+				
+				timer = setInterval(pic,3000);
+				slider.onmouseover = function(){
+					clearInterval(timer);
+				}
+				slider.onmouseout = function(){
+					
+					timer = setInterval(pic,3000);
+				}
+				function pic(){
+					
+					n++;
+					move(des,{bottom:-70},500,'linear',function(){
+						
+						btnLis.forEach(function(singleLi){
+							singleLi.style.background = '';
+						})
+						
+						move(holder,{left:-1280*n},1000,'linear',function(){
+							
+							if(n==slide.length/2){
+								holder.style.left=0;
+								n=0;
+								btnLis[n].style.background = '#ffc22e';
+							}else{
+								btnLis[n].style.background = '#ffc22e';
+							}
+							
+							des.innerHTML = '<span>'+textArr[n].title+'</span><p>'+ textArr[n].content+'</p>';
+							move(des,{bottom:0},500,'linear');
+						});
+					});
+				}
+			}
+		</script>
+	</body>
+</html>
