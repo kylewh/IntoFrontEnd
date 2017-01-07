@@ -1,0 +1,81 @@
+<script>
+
+	Array.prototype.myPush = function() {
+		this.splice( this.length, 0, ...arguments);
+		return this.length;
+	}
+	let arr1 = [0];
+	console.log( arr1.myPush(1,2,3) ); //4
+	console.log( arr1 ); // [0,1,2,3] 
+	
+	// Object.prototype.diyPush = function(){
+	// 	// let This = this;
+	// 	let input = Array.from(arguments);
+
+	// 	Array.prototype.myPush = function(){
+	// 		this.splice(this.length, 0, ...arguments);
+	// 		return this.length;
+	// 	}
+
+	// 	if( Array.isArray(this) ) {
+	// 		this.myPush(...arguments);
+	// 	}else if(this.length){
+	// 		// Array.from(this, element => element ).myPush(...arguments);
+	// 		// let temp = Array.from(this);
+	// 		let This = Array.from(this);
+	// 		// return temp.myPush(...arguments);
+	// 		console.log(input)
+	// 		console.log(This);
+	// 		return Array.prototype.splice.apply(This, [0, This.length].concat(input));
+	// 	}else {
+	// 		console.error(this + " is not a Array or Array-like object");
+	// 	}
+	// }
+
+	/*
+		特么只有string是原生类数组对象，但是数组不可变！呵呵....
+	*/
+
+
+
+	// let arr1 = [0];
+
+ // 	let fakeArry = {
+ // 					'2':2,
+ // 					'length':1
+ // 				   };
+ // 	let realArry = Array.from(fakeArry);
+ // 	let realArry2 = Array.from(fakeArry, (v,i) => v);
+ // 	console.log(realArry);
+ // 	console.log(realArry2);
+
+
+	// console.log( Array.from(fakeArry, element => element ) );
+
+	// console.log ( arr1.myPush(1,2,3) );
+	// console.log ( arr1 );
+
+	// console.log ( fakeArry.diyPush(1,2,3) );
+	// console.log ( fakeArry );
+
+// 	let arr = [0,1,2,3];
+// 	console.log( arr.myArray.push(4,5,6));
+
+
+// var arr = ['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j'];
+// var anotherArr = [1, 2, 3];
+
+// Array.prototype.splice.apply(arr, [0, anotherArr.length].concat(anotherArr));
+
+// console.log(arr);
+
+
+
+// Array.prototype.myPush = function (){
+// 	return this.concat( Array.of(...arguments));
+// }
+
+// let arr1 = [0];
+
+// console.log(arr1.myPush(1,2,3)); // [0,1,2,3]
+</script>
