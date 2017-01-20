@@ -29,7 +29,7 @@
 //URL : http://b.xx.com:3000/
 function jsonFn(param) { //do sth with param passed in.}
 
-<script src='http://a.xx.com:3000/getSth?callback=jsonFn></script> //与前面的jsonFn对应，注意先后顺序以防报错: jsonFn is not defined.
+<script src='http://a.xx.com:3000/getSth?callback=jsonFn'></script> //与前面的jsonFn对应，注意先后顺序以防报错: jsonFn is not defined.
 
 //server-side - routes 
 app.get("/getSth", function(){
