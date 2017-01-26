@@ -22,7 +22,7 @@
 - 以chrome为代表的浏览器，会等待CSS加载并解析完毕后再对页面进行渲染。
 - 以firefox为代表的浏览器，会先加载渲染html，随后等待CSS加载解析完毕后对页面进行重绘。（闪烁的原因）    
 
-可见出现这两种现象的原因是CSS没有优先加载。
+可见出现后面这种现象的原因是CSS没有优先加载。
 
 而造成对CSS加载解析没有第一时间进行的原因是把样式引入放在了底部，或者使用了`@import`的方式来引入CSS， 将JS放在头部也会导致阻塞后续内容的加载而导致白屏。    
 
@@ -36,9 +36,17 @@
 <script type="text/javascript" async src="xxxx.js"></script>
 ```
 
+![](https://ww3.sinaimg.cn/large/006tNbRwjw1fc3tmqp2pbj31kw0k0jui.jpg)
+
 - async： async只适用于外部脚本文件，给script加上这个属性后，告诉浏览器立即下载文件，并且页面不需要等待脚本文件的下载和执行---异步，如果有两个脚本文件都具有async属性，脚本文件出现的先后并不会决定它们的先后**执行**顺序（注意加载和执行的区别）
+
+![](https://ww1.sinaimg.cn/large/006tNbRwjw1fc3tm1iqklj31kw0gb0us.jpg)
+
 - defer： defer同样也不会使脚本文件阻塞页面加载，脚本立即下载，但是会延迟到页面完全解析完毕后再执行。与async的区别在于如果同时有两个脚本文件都有defer属性，它们出现的顺序就是它们执行的顺序，但其实现实里未必会遵循这个顺序。    
-- ---
+
+![](https://ww2.sinaimg.cn/large/006tNbRwjw1fc3tmbwc5qj31kw0godia.jpg)
+
+---
 
 **4.简述网页的渲染机制**    
 
