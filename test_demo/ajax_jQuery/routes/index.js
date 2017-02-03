@@ -6,10 +6,12 @@ router.get("/", function (req, res) {
 });
 
 router.get('/fetch', function (req, res) {
+    console.log('hi');
     setTimeout(function () {
         res.send({
             'succ': true
         });
+        console.log('hi');
     }, 1000); //模拟拉取数据时间
 })
 

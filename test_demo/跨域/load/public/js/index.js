@@ -4,15 +4,15 @@ let curIndex = 2;
 
 
 
-
 btn.addEventListener('click', function (e) {
     e.preventDefault();
-
 
     //jsonp
     jsonp({
         url: 'http://b.kylewh.com:3000/getSth',
-        data: {},
+        data: {
+            'lwh': 're1baby'
+        },
         callback: 'cb',
         succ: function (data) {
             console.log(data);
@@ -62,4 +62,12 @@ btn.addEventListener('click', function (e) {
             console.log(err);
         }
     });
+
+    // $.get('/fetch', function (data) {
+    //     for (let i = 0; i < 6; i++) {
+    //         let newContent = document.createElement('li');
+    //         newContent.innerText = 'mockData ' + (++curIndex);
+    //         content.appendChild(newContent);
+    //     }
+    // });
 });
