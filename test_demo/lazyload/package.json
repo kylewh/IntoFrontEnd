@@ -1,0 +1,17 @@
+{
+  "name": "lazyload",
+  "version": "1.0.0",
+  "description": "lazyload",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "lazyload"
+  ],
+  "author": "kylewh",
+  "license": "ISC",
+  "dependencies": {
+    "express": "^4.14.1"
+  }
+}
