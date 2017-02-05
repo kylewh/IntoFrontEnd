@@ -6,6 +6,7 @@ $(window).on('scroll', function () {
     if (clock) {
         clearTimeout(clock);
     }
+    //滚动触发次数较多，但是由于clock被反复赋值，当不再触发滚动时clock的赋值被覆盖为最后一次的定时器。
     clock = setTimeout(function () {
         checkShow();
     }, 300);
