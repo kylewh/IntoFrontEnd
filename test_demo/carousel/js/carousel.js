@@ -21,6 +21,9 @@ function carousel($carousel) {
     //调整位置至第一张
     $carousel.css("left", "-1000px");
 
+    autoPlay(); 
+
+
     let $preBtn = $('.pre').eq(0),
         $nextBtn = $('.next').eq(0),
         isClick = false, //click trriger locker
@@ -80,6 +83,7 @@ function carousel($carousel) {
         // 当传入dir的参数为空(空字符串而非不传入)，且后两个索引参数都传入时，进入跳跃模式
         if ((typeof curIndex !== undefined && typeof targetIndex !== undefined) && !dir) {
             let indexDif = targetIndex - curIndex;
+
             $carousel.animate({
                 left: `-=${$imgWidth*indexDif}`
             }, function () {
@@ -87,9 +91,13 @@ function carousel($carousel) {
                 console.log(`这是轮播的第${pageIndex+1}张图`);
                 thumbnail(pageIndex);
             });
-        } else {
 
+        // ----   Jump Mode End   ----
+
+        } else {
         // ----   One Step Mode   ----
+            //停止定时器，防止自动轮播与当前人为触发切换过程冲突
+            stopAuto();
 
             $carousel.animate({
                 left: dif + `=${$imgWidth}`
@@ -126,8 +134,12 @@ function carousel($carousel) {
                 
                 //导航同步
                 thumbnail(pageIndex);
- 
+                
+                //完成所有行为后再激活自动轮播。
+                autoPlay(); 
             });
+
+        // ----   One Step Mode End  ----
         }
 
         /*
@@ -139,5 +151,16 @@ function carousel($carousel) {
         }
     }
 
+        function autoPlay(dir) {
+            console.log('开启自动')
+            dir = dir || 'next';
+            clock = setInterval(function () {
+                play(dir);
+            }, 2000);
+        }
 
+        function stopAuto() {
+            console.log('关闭自动')
+            clearInterval(clock);
+        }
 }
