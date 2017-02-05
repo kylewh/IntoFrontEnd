@@ -13,7 +13,8 @@ function carousel($carousel) {
         $firstImg = $carousel.children().first(),
         $lastImg = $carousel.children().last(),
         $imgWidth = $lastImg.width(),
-        $thumbnail = $('.thumbnail');
+        $thumbnail = $('.thumbnail'),
+        clock;
 
     //拼接加工
     spliceImg($carousel, $firstImg, $lastImg, oldLength);
@@ -31,6 +32,8 @@ function carousel($carousel) {
 
     // 前后翻页按钮事件绑定
     $('.btn').on('click', function (e) {
+        //停止定时器，防止自动轮播与当前人为触发切换过程冲突
+        stopAuto();
         e.preventDefault();
         if (!isClick) {
             isClick = true;
@@ -40,11 +43,15 @@ function carousel($carousel) {
                 play('next');
             }
         }
+        setTimeout(autoPlay,0); //最后开启自动轮播
     });
 
     $thumbnail.children().on('click', function () {
+        //停止定时器，防止自动轮播与当前人为触发切换过程冲突
+        stopAuto();
         let curIndex = $(this).index();
         play('', pageIndex, curIndex);
+        setTimeout(autoPlay,0); //最后开启自动轮播
     })
 
     /* 
@@ -83,22 +90,18 @@ function carousel($carousel) {
         // 当传入dir的参数为空(空字符串而非不传入)，且后两个索引参数都传入时，进入跳跃模式
         if ((typeof curIndex !== undefined && typeof targetIndex !== undefined) && !dir) {
             let indexDif = targetIndex - curIndex;
-
             $carousel.animate({
                 left: `-=${$imgWidth*indexDif}`
             }, function () {
                 pageIndex += indexDif;
-                console.log(`这是轮播的第${pageIndex+1}张图`);
-                thumbnail(pageIndex);
+                //console.log(`这是轮播的第${pageIndex+1}张图`);
+                thumbnail(pageIndex); 
             });
 
         // ----   Jump Mode End   ----
 
         } else {
         // ----   One Step Mode   ----
-            //停止定时器，防止自动轮播与当前人为触发切换过程冲突
-            stopAuto();
-
             $carousel.animate({
                 left: dif + `=${$imgWidth}`
             }, function () {
@@ -130,13 +133,10 @@ function carousel($carousel) {
                     });
                     pageIndex = oldLength - 1;
                 }
-                console.log(`这是轮播的第${pageIndex+1}张图`);
+                //console.log(`这是轮播的第${pageIndex+1}张图`);
                 
                 //导航同步
                 thumbnail(pageIndex);
-                
-                //完成所有行为后再激活自动轮播。
-                autoPlay(); 
             });
 
         // ----   One Step Mode End  ----

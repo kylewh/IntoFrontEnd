@@ -4,7 +4,7 @@ carousel($('.carousel'));
     轮播激活，传入轮播主体(ul.carousel)
 */
 function carousel($carousel) {
-    
+
     let size = $carousel.children().length,
         $imgList = $carousel.children(),
         $firstImg = $carousel.children().first(),
@@ -29,7 +29,6 @@ function carousel($carousel) {
     $('.btn').on('click', function (e) {
         e.preventDefault();
         if (!isClick) {
-            
             isClick = true;
             if ($(this).hasClass('pre')) {
                 play('pre');
@@ -81,7 +80,7 @@ function carousel($carousel) {
             pageIndex = nextIndex;
             setThumb();
 
-            //完成所有行为后再激活自动轮播。
+                
             autoPlay(); 
         });
 
