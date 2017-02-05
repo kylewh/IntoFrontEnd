@@ -7,9 +7,7 @@ router.get("/", function (req, res) {
 
 router.get('/fetch', function (req, res) {
     setTimeout(function () {
-        res.send({
-            'succ': true
-        });
+        res.send({'succ': true});
     }, 1000); //模拟拉取数据时间
 })
 
