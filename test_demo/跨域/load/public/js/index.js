@@ -63,11 +63,4 @@ btn.addEventListener('click', function (e) {
         }
     });
 
-    // $.get('/fetch', function (data) {
-    //     for (let i = 0; i < 6; i++) {
-    //         let newContent = document.createElement('li');
-    //         newContent.innerText = 'mockData ' + (++curIndex);
-    //         content.appendChild(newContent);
-    //     }
-    // });
 });
