@@ -15,9 +15,27 @@ btn.addEventListener('click', function (e) {
         },
         callback: 'cb',
         succ: function (data) {
-            console.log(data);
+            console.log( data );
         }
     });
+
+
+    //http://platform.sina.com.cn/slide/album_tech?jsoncallback=func&app_key=1271687855&num=3&page=4
+    //新浪新闻jsonp例子
+    jsonp_noTimeStamp({
+        url: 'http://platform.sina.com.cn/slide/album_tech',
+        data: {
+            'app_key' : 1271687855,
+            'num' : 3,
+            'page' : 4
+        },
+        callback: 'jsoncallback',
+        succ: function (data) {
+            console.log( data );
+        }
+    });
+
+
 
     //CORS
     ajax({
@@ -63,4 +81,11 @@ btn.addEventListener('click', function (e) {
         }
     });
 
+    // $.get('/fetch', function (data) {
+    //     for (let i = 0; i < 6; i++) {
+    //         let newContent = document.createElement('li');
+    //         newContent.innerText = 'mockData ' + (++curIndex);
+    //         content.appendChild(newContent);
+    //     }
+    // });
 });
