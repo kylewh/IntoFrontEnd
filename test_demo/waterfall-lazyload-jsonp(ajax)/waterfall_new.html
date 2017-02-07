@@ -1,0 +1,250 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Waterfall-news</title>
+    <script src="https://code.jquery.com/jquery-3.1.0.js"></script>
+    <style>
+        * {
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: Arial, Helvetica, sans-serif;
+        }
+        
+        ul,
+        li,
+        p,
+        h4 {
+            margin: 0;
+            padding: 0;
+            list-style: none;
+        }
+        
+        .layout {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        
+        .news-ct {
+            position: relative;
+        }
+        
+        .item {
+            width: 280px;
+            position: absolute;
+            box-shadow: 1px 1px 12px #bdbdbd;
+            margin: 10px;
+            padding-bottom: 20px;
+            background-color: #fff;
+            top: 0;
+            left: 0;
+            opacity: 0;
+            transition: opacity 1s;
+        }
+        
+        .item img {
+            width: 280px;
+        }
+        
+        .header {
+            border-bottom: 1px dotted rgb(47, 152, 66);
+            ;
+            line-height: 40px;
+            color: #616161;
+            margin: 0 15px;
+        }
+        
+        .des {
+            margin-top: 10px;
+            font-size: 12px;
+            line-height: 1.8;
+            color: #9e9e9e;
+            margin: 10px 15px;
+        }
+        
+        .hide {
+            visibility: hidden;
+        }
+
+        .none {
+            display: none;
+        }
+        
+        .error {
+            display: none;
+            position: absolute;
+            background-color: #ff8181;
+            color: #fff;
+            font-size: 18px;
+            width: 360px;
+            text-align: center;
+            line-height: 2.5;
+            font-family: Helvetica, sans-serif;
+            border-radius: 5px;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+        }
+    </style>
+</head>
+
+<body>
+    <div class="layout">
+        <div class="waterfall-ct">
+            <ul class="news-ct">
+                <!--这里不再使用占位item进行计算，而是直接显式给nodeWidth赋值,否则在页面resize后的排版在第一次遍历时index=0处会计入此hide元素的outerheight（不为0），使得出现多余空隙-->
+                <!--<li class="item none">For calculation</li>-->
+                <!--<li class="item">
+                    <a href="#"><img src="http://www.sinaimg.cn/dy/slidenews/5_t160/2017_05/453_84709_824801.jpg" alt=""></a>
+                    <h4 class="header">大象脚推乌龟前行似踢足球</h4>
+                    <p class="des">一只闲得无聊的大象在草地漫步时发现一只豹纹陆龟，伸出大脚踢了踢乌龟。</p>
+                </li>-->
+            </ul>
+            <div id="load" class="hide">Load Trigger</div>
+        </div>
+    </div>
+    <script src="./js/jsonp_noTimeStamp.js"></script>
+    <script src="./js/waterfall.js"></script>
+    <script>
+        /*
+                需求： 首屏打开展示新闻，滚动鼠标至已加载新闻内容底部，则继续加载。
+                思路：
+                展示新闻 -> 如何获得 -> jsonp地址(引入封装jsonp或者直接ajax请求) -> 加工数据 
+                -> 计算放置位置(瀑布流) -> 先铺满一屏 -> 绑定滚动加载事件(懒加载)
+                */
+
+        let clock;
+
+        $(window).on('scroll', function () {
+            if (clock) {
+                clearTimeout(clock);
+            }
+            clock = setTimeout(checkShow, 300);
+        });
+
+        $(window).on('resize', function () {
+            // applyWaterFall($('.item'),true)
+            Waterfall.init($('.news-ct').eq(0)); //引入waterfall排版，跟applyWaterfall不一样，不需要考虑加载更多后的height累积问题
+        });
+
+        checkShow();
+
+        function checkShow() {
+            if (isVisible($('#load'))) {
+                jsonp_noTimeStamp({
+                    url: 'http://platform.sina.com.cn/slide/album_tech',
+                    data: {
+                        app_key: '1271687855',
+                        num: 10,
+                        page: 2
+                    },
+                    callback: 'jsoncallback',
+                    succ: loadAndPlace
+                });
+            }
+        }
+
+        function isVisible($ele) {
+            let wHeight = $(window).height(),
+                eHeight = $ele.height(),
+                eScrollTop = $ele.offset().top,
+                wscrollTop = $(window).scrollTop();
+            console.log(wHeight, eHeight, eScrollTop, wscrollTop);
+
+            if (eScrollTop < wHeight + wscrollTop && wscrollTop < eHeight + eScrollTop) {
+                return true;
+            }
+            return false;
+        }
+
+        function loadAndPlace(Data) {
+            if (Data && Data.status && Data.status.code === "0") {
+                place(Data.data);
+            } else {
+                errorFlash();
+            };
+        }
+
+        function place(arrData) {
+            let $nodes = $(itemMaker(arrData));
+            $('.news-ct').eq(0).append($nodes);
+
+            let imgLoadNum = 0;
+            console.log($(".item img"));
+            $(".item img").on('load', function () {
+                if (imgLoadNum === $nodes.length - 1) {
+                    applyWaterFall($nodes);
+                } else {
+                    imgLoadNum++;
+                }
+            })
+        }
+
+        function itemMaker(arrData) {
+            let newsStr = '';
+            for (let i = 0; i < arrData.length; i++) {
+                newsStr +=
+                    `<li class="item">
+                        <a href="${arrData[i].url}"><img src="${arrData[i].img_url}" alt="${arrData[i].name}"></a>
+                        <h4 class="header">${arrData[i].short_name}</h4>
+                        <p class="des">${arrData[i].short_intro}</p>
+                    </li>`
+            }
+            return newsStr;
+        }
+
+        let arrColHeight = [];
+
+        function applyWaterFall($nodes, setContainer) {
+
+            nodeWidth = 300,
+            colNum = Math.floor($('.waterfall-ct').eq(0).width() / nodeWidth);
+
+            console.log()
+            for (let i = 0; i < colNum; i++) {
+                arrColHeight.push(0);
+            }
+
+            $.each($nodes, function () {
+                placeItem($(this));
+            });
+
+            function placeItem($ele) {
+                let minHeight = arrColHeight[0],
+                    minHeight_index = 0;
+                for (let i = 0; i < colNum; i++) {
+                    if (arrColHeight[i] < minHeight) {
+                        minHeight = arrColHeight[i];
+                        minHeight_index = i;
+                    };
+                }
+                $ele.css({
+                    left: minHeight_index * nodeWidth,
+                    top: arrColHeight[minHeight_index],
+                    opacity: 1
+                });
+
+                arrColHeight[minHeight_index] += $ele.outerHeight(true);
+                //setContainer
+                if(!setContainer) {
+                    $('.news-ct').height(Math.max(...arrColHeight));
+                    console.log(1);
+                }
+            }
+        }
+
+        function errorFlash() {
+            let $errorMsg = $('<span class="error">Opps..we get an error..</span>');
+            $errorMsg.appendTo($('body').eq(0)).fadeIn(1000, function () {
+                setTimeout(function () {
+                    $errorMsg.fadeOut(1000);
+                }, 1000);
+            });
+        }
+    </script>
+</body>
+
+</html>
