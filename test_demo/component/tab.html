@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Tab Componnent</title>
+    <style>
+        * {
+            box-sizing: border-box;
+        }
+        
+        body {
+            line-height: 1;
+            font-family: "Lucaida Console";
+        }
+        
+        ul,
+        li {
+            margin: 0;
+            padding: 0;
+            list-style: none;
+        }
+        
+        .clearfix::after {
+            content: '';
+            display: block;
+            visibility: none;
+            clear: both;
+        }
+        
+        .tab {
+            width: 1000px;
+            margin: 50px auto;
+            box-shadow: -1px 1px 2px 0px #ccc;
+            background: #424242;
+            border-radius: 3px;
+        }
+        
+        .tab-header>li {
+            float: left;
+            padding: 20px 30px;
+            cursor: pointer;
+            margin: 0 1px;
+            background: #673ab7;
+            color: #fff;
+        }
+        .tab-header>li:not([class ~='active']):hover {
+            background: #7e57c2;
+        }
+
+        .tab-header>li:first-child {
+            margin-left: 0;
+        }
+        
+        .tab-header>li.active {
+            border-top: 1px solid #FAFAFA;
+            padding-top: 19px;
+            background: #f5f5f5;
+            color: #000;
+            font-weight: bold;
+        }
+        
+        .tab-panel {
+            background: #f5f5f5;
+            padding: 20px;
+        }
+        
+        .tab-panel>li {
+            display: none;
+        }
+        
+        .active {
+            display: block !important;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="tab">
+        <ul class="tab-header clearfix">
+            <li class="active">Event1</li>
+            <li>Event2</li>
+            <li>Event3</li>
+        </ul>
+        <ul class="tab-panel">
+            <li class="active">
+                <h2>Content-1</h2>
+                <p>Appropriately transform best-of-breed human capital via scalable sources. Monotonectally disseminate premium
+                    markets for goal-oriented outsourcing. Credibly supply user-centric markets rather than integrated expertise.
+                    Collaboratively redefine alternative e-markets before.</p>
+            </li>
+            <li>
+                <h2>Content-2</h2>
+                <p>Conveniently drive team building intellectual capital without an expanded array of technology. Credibly architect
+                    go forward web services with e-business experiences. Dramatically promote 24/7 imperatives and interoperable
+                    "outside the box".</p>
+            </li>
+            <li>
+                <h2>Content-3</h2>
+                <p>Continually facilitate e-business quality vectors without B2B metrics. Monotonectally revolutionize vertical
+                    schemas with team building e-tailers. Interactively facilitate web-enabled services whereas multimedia
+                    based e-commerce. Intrinsicly.</p>
+            </li>
+        </ul>
+    </div>
+    <div class="tab">
+        <ul class="tab-header clearfix">
+            <li class="active">Event1</li>
+            <li>Event2</li>
+            <li>Event3</li>
+        </ul>
+        <ul class="tab-panel">
+            <li class="active">
+                <h2>Content-1</h2>
+                <p>Appropriately transform best-of-breed human capital via scalable sources. Monotonectally disseminate premium
+                    markets for goal-oriented outsourcing. Credibly supply user-centric markets rather than integrated expertise.
+                    Collaboratively redefine alternative e-markets before.</p>
+            </li>
+            <li>
+                <h2>Content-2</h2>
+                <p>Conveniently drive team building intellectual capital without an expanded array of technology. Credibly architect
+                    go forward web services with e-business experiences. Dramatically promote 24/7 imperatives and interoperable
+                    "outside the box".</p>
+            </li>
+            <li>
+                <h2>Content-3</h2>
+                <p>Continually facilitate e-business quality vectors without B2B metrics. Monotonectally revolutionize vertical
+                    schemas with team building e-tailers. Interactively facilitate web-enabled services whereas multimedia
+                    based e-commerce. Intrinsicly.</p>
+            </li>
+        </ul>
+    </div>
+    <script>
+        let Tab = (function () {
+            function _Tab(tabContainer) {
+                this.ct = tabContainer;
+                this.init();
+                this.bind();
+            };
+
+            _Tab.prototype.init = function () {
+                this.headers = this.ct.querySelectorAll('.tab-header>li');
+                this.panels = this.ct.querySelectorAll('.tab-panel>li');
+            };
+
+            _Tab.prototype.bind = function () {
+                let _this = this;
+                this.headers.forEach(function(header,index){
+                    header.addEventListener('click', function(e){
+                        let target = e.target;
+                        let index = [].indexOf.call(_this.headers, target);
+                        _this.headers.forEach(function(header){
+                            header.classList.remove('active');
+                        });
+                        target.classList.add('active');
+                        _this.panels.forEach(function(panel){
+                            panel.classList.remove('active');
+                        });
+                        _this.panels[index].classList.add('active');
+                    })
+                }) 
+            };
+
+            return {
+                start: function (tab) {
+                    tab.forEach(function (tab) {
+                        new _Tab(tab);
+                    });
+                }
+            }
+        })();
+
+        Tab.start(document.querySelectorAll('.tab'));
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,367 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Calendar Component Demo</title>
+    <style>
+        body {
+            font-family: "Lucaida Console";
+        }
+        
+        ul,
+        li {
+            list-style: none;
+            margin: 0;
+            padding: 0;
+        }
+        
+        input.date-picker {
+            font-size: 12px;
+            padding: 10px 20px;
+            border-radius: 5px;
+            border: none;
+            outline: none;
+            box-shadow: 0 0 5px -1px grey;
+            position: relative;
+            margin: 0 10px;
+            cursor: pointer;
+            width: 200px;
+        }
+        
+        .date {
+            font-size: 12px;
+            width: 240px;
+            position: absolute;
+            left: 8px;
+            box-shadow: 1px 1px 10px 0px #ccc;
+            font-weight: 200;
+            display: none;
+            height: 0;
+            opacity: 0;
+            transition: all 0.5s;
+            overflow: hidden;
+        }
+        
+        .date-header {
+            position: relative;
+        }
+        
+        .date-header .btn {
+            position: absolute;
+            content: "";
+            display: block;
+            height: 0;
+            width: 0;
+            border-style: solid;
+            top: 50%;
+            transform: translateY(-50%);
+            cursor: pointer;
+        }
+        
+        .date-header .pre {
+            left: 10px;
+            border-width: 5px 10px 5px 0;
+            border-color: transparent #fff transparent transparent;
+        }
+        
+        .date-header .next {
+            right: 10px;
+            border-width: 5px 0 5px 10px;
+            border-color: transparent transparent transparent #fff;
+        }
+        
+        .dateToday {
+            font-size: 14px;
+            line-height: 1.8;
+            text-align: center;
+            background-color: #36c799;
+            color: #fff;
+        }
+        
+        .date-panel {
+            width: 100%;
+            background: #fff;
+        }
+        
+        .date-panel th {
+            font-weight: 400;
+        }
+        
+        .date-panel th:first-child,
+        .date-panel th:last-child {
+            color: #36c799;
+        }
+        
+        .date-panel td {
+            text-align: center;
+        }
+        
+        .date-panel td:hover {
+            background-color: #ff7043;
+            color: #fff;
+            cursor: pointer;
+        }
+        
+        .date-panel .last,
+        .date-panel .next {
+            color: #bdbdbd;
+        }
+        
+        .date-panel .active {
+            color: #ff8a65;
+            font-weight: bold;
+        }
+    </style>
+</head>
+
+<body>
+    <input class="date-picker" type="text" placeholder="起止日期"><input class="date-picker" type="text" placeholder="结束日期">
+    <script>
+        ;let date = (function () {
+            //Tool
+            function $(selector) {
+                return document.querySelectorAll(selector);
+            }
+            //Initialize data needed later
+            function _Date(input) {
+                this.ct = input.offsetParent;
+                this.input = input;
+                this.datePicker = null;
+                this.date = new Date();
+                this.month = this.date.getMonth();
+                this.year = this.date.getFullYear();
+                this.Render();
+                this.tbody = this.datePicker.querySelector('tbody');
+                console.log(this.input)
+                this.fillDate(this.date);
+                this.bind();
+            };
+
+            _Date.prototype.Render = function () {
+                let _this = this;
+                // Render panel for filling in date table. 
+                // <tbody>data-table goes here</tbody>
+                let panelHtml =
+                    `
+                                    <ul class="date-header">
+                                        <li class="btn pre"></li>
+                                        <li class="dateToday">2017年2月16日</li>
+                                        <li class="btn next"></li>
+                                    </ul>
+                                    <table class="date-panel">
+                                        <thead>
+                                            <tr class="day">
+                                                <th>日</th>
+                                                <th>一</th>
+                                                <th>二</th>
+                                                <th>三</th>
+                                                <th>四</th>
+                                                <th>五</th>
+                                                <th>六</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody></tbody>
+                                    </table>
+                                `;
+                let temp = document.createElement('div');
+                temp.className = 'date';
+                temp.style.left = this.input.getBoundingClientRect().left + 'px';
+                temp.style.top = this.input.getBoundingClientRect().top + this.input.getBoundingClientRect().height +'px';
+                temp.innerHTML = panelHtml;
+                this.datePicker = this.ct.appendChild(temp);
+            };
+
+            _Date.prototype.fillDate = function (dateToSet) {
+
+                let yearNow = dateToSet.getFullYear(),
+                    monthNow = dateToSet.getMonth() + 1,
+                    dateNow = dateToSet.getDate(),
+                    firstDay = this.getFirstDay(dateToSet),
+                    lastDay = this.getLastDay(dateToSet),
+                    headerStr = yearNow + '年' + monthNow + '月',
+                    dateArr = [];
+
+                //Load date of last month.
+                for (let i = 1; i < firstDay.getDay() + 1; i++) {
+                    let d = new Date(firstDay.getTime() - i * 24 * 60 * 60 * 1000);
+                    dateArr.unshift({
+                        date: d,
+                        type: 'last'
+                    });
+                }
+                //Load date of current month.
+                for (let i = 0; i < lastDay.getDate(); i++) {
+                    let d = new Date(firstDay.getTime() + i * 24 * 60 * 60 * 1000);
+                    dateArr.push({
+                        date: d,
+                        type: 'cur'
+                    });
+                }
+                //Load date of next month.
+                for (let i = 1; i < 7 - lastDay.getDay(); i++) {
+                    let d = new Date(lastDay.getTime() + i * 24 * 60 * 60 * 1000);
+                    dateArr.push({
+                        date: d,
+                        type: 'next'
+                    });
+                }
+
+                let dateStr = '';
+                let isActive;
+
+                //Splice all date together with tag then render.
+                for (let i = 0; i < dateArr.length; i++) {
+                    if (i % 7 == 0) {
+                        dateStr += "<tr>";
+                    }
+                    if (new Date().getDate() === i - firstDay.getDay() + 1 && dateToSet.getFullYear() ===
+                        new Date()
+                        .getFullYear() && dateToSet.getMonth() === new Date().getMonth()) {
+                        isActive = ' active';
+                    } else {
+                        isActive = '';
+                    }
+                    dateStr +=
+                        `<td class="${dateArr[i]['type']}${isActive}">${dateArr[i]['date'].getDate()}</td>`;
+                    if (i % 7 == 6) {
+                        dateStr += "</tr>";
+                    }
+                }
+
+                this.datePicker.querySelector('.dateToday').innerHTML = headerStr;
+                this.tbody.innerHTML = dateStr;
+            };
+
+            //Deal with switch and show/off logic under various situation.
+            _Date.prototype.bind = function () {
+                let _this = this;
+                this.btns = this.datePicker.querySelectorAll('.btn');
+
+                this.btns[0].addEventListener('click', function () {
+                    _this.date.setMonth(_this.date.getMonth() - 1);
+                    _this.month = _this.date.getMonth();
+                    _this.year = _this.date.getFullYear();
+                    _this.fillDate(_this.date);
+                    _this.show();
+                });
+
+                this.btns[1].addEventListener('click', function () {
+                    _this.date.setMonth(_this.date.getMonth() + 1);
+                    _this.month = _this.date.getMonth();
+                    _this.year = _this.date.getFullYear();
+                    _this.fillDate(_this.date);
+                    _this.show();
+                });
+
+                this.tbody.addEventListener('click', function (e) {
+                    if (e.target.tagName === 'TD') {
+                        let monthTemp = _this.month + 1;
+                        _this.datePicker.style.height = '0';
+                        _this.datePicker.style.display = 'none';
+
+                        if (e.target.classList.contains('last')) {
+                            monthTemp = _this.toFixed(_this.month);
+                        }
+                        if (e.target.classList.contains('next')) {
+                            monthTemp = _this.toFixed(_this.month + 2);
+                        }
+                        _this.input.value =
+                            `${_this.year}/${monthTemp}/${_this.toFixed(e.target.innerHTML)}`;
+                    }
+                });
+
+                this.input.onfocus = function () {
+                    _this.show();
+                };
+
+                document.documentElement.addEventListener('click', function (e) {
+                    if (e.target !== _this.input && e.target !== _this.btns[0] && e.target !==
+                        _this.btns[1]) {
+                        _this.hide();
+                    }
+                    if (e.target == document.documentElement) {
+                        _this.hide();
+                    }
+                });
+            };
+
+            _Date.prototype.getFirstDay = function (date) {
+                return new Date(date.getFullYear(), date.getMonth(), 1);
+            };
+
+            _Date.prototype.getLastDay = function (date) {
+                let year = date.getFullYear(),
+                    month = date.getMonth();
+                month++;
+                if (month > 11) {
+                    month = 0;
+                    year++;
+                }
+                return new Date(year, month, 0)
+            };
+
+            _Date.prototype.getLastMonthFirst = function (date) {
+                let year = date.getFullYear(),
+                    month = date.getMonth();
+                month--;
+                if (month < 0) {
+                    month = 11;
+                    year--;
+                }
+                return new Date(year, month, 1);
+            };
+
+            _Date.prototype.getNextMonthFirst = function (date) {
+                let year = date.getFullYear(),
+                    month = date.getMonth();
+                month++;
+                if (month > 11) {
+                    month = 0;
+                    year++;
+                }
+                return new Date(year, month, 1);
+            };
+
+            _Date.prototype.getYYMMDD = function (date) {
+                return date.getFullYear() + "/" + this.toFixed(date.getMonth() + 1) + "/" + this.toFixed(
+                    date.getDate());
+            };
+
+            _Date.prototype.toFixed = function (n) {
+                return (n + '').length === 1 ? (`0${n}`) : (n + '');
+            };
+
+            _Date.prototype.show = function () {
+                let _this = this;
+                _this.datePicker.style.display = 'block';
+                setTimeout(function () {
+                    let headerHeight = _this.datePicker.querySelector('.date-header').getBoundingClientRect()
+                        .height,
+                        panelHeight = _this.datePicker.querySelector('.date-panel').getBoundingClientRect()
+                        .height;
+                    _this.datePicker.style.height = headerHeight + panelHeight + 'px';
+                    _this.datePicker.style.opacity = '1';
+                }, 0);
+            };
+
+            _Date.prototype.hide = function () {
+                this.datePicker.style.height = '0';
+                this.datePicker.style.opacity = '0';
+                this.datePicker.style.display = 'none';
+            };
+
+            return {
+                init: function (inputs) {
+                    inputs.forEach(function (input) {
+                        new _Date(input);
+                    })
+                }
+            }
+        })();
+
+        date.init(document.querySelectorAll('input'));
+    </script>
+</body>
+
+</html>

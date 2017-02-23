@@ -1,0 +1,328 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Carousel Component Demo</title>
+    <script src="https://use.fontawesome.com/0efc87e065.js"></script>
+    <style>
+        a {
+            text-decoration: none;
+            color: white;
+        }
+        
+        ul,
+        li {
+            margin: 0;
+            padding: 0;
+            list-style: none;
+        }
+        
+        .clearfix::after {
+            content: '';
+            display: block;
+            visibility: hidden;
+            clear: both;
+        }
+        
+        .carousel-ct {
+            width: 1000px;
+            overflow: hidden;
+            margin: 0 auto;
+            position: relative;
+            height: 565px;
+        }
+        
+        .carousel {
+            width: 7680px;
+            position: absolute;
+        }
+        
+        .carousel>li {
+            float: left;
+        }
+        
+        .carousel img {
+            width: 1000px;
+        }
+        
+        .thumbnail {
+            width: 610px;
+            position: absolute;
+            left: 50%;
+            bottom: 0px;
+            transform: translateX(-50%);
+            z-index: 10;
+        }
+        
+        .thumbnail>li {
+            display: inline-block;
+            opacity: 0.5;
+            cursor: pointer;
+        }
+        
+        .thumbnail>li:hover {
+            opacity: 1;
+        }
+        
+        .active {
+            opacity: 1 !important;
+        }
+        
+        .btn {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            transition: all 0.5s;
+            display: block;
+            text-align: center;
+            font-size: 30px;
+            line-height: 565px;
+            width: 100px;
+        }
+        
+        .btn.pre {
+            left: 0px;
+            background: rgba(48, 48, 48, 1);
+            background: -moz-linear-gradient(left, rgba(48, 48, 48, 1) 0%, rgba(99, 99, 99, 1) 0%, rgba(112, 112, 112, 1) 0%, rgba(84, 84, 84, 1) 0%, rgba(79, 79, 79, 1) 0%, rgba(0, 0, 0, 1) 0%, rgba(20, 20, 20, 1) 0%, rgba(20, 20, 20, 0.73) 32%, rgba(48, 48, 48, 0.36) 76%, rgba(55, 57, 57, 0.16) 100%);
+            background: -webkit-gradient(left top, right top, color-stop(0%, rgba(48, 48, 48, 1)), color-stop(0%, rgba(99, 99, 99, 1)), color-stop(0%, rgba(112, 112, 112, 1)), color-stop(0%, rgba(84, 84, 84, 1)), color-stop(0%, rgba(79, 79, 79, 1)), color-stop(0%, rgba(0, 0, 0, 1)), color-stop(0%, rgba(20, 20, 20, 1)), color-stop(32%, rgba(20, 20, 20, 0.73)), color-stop(76%, rgba(48, 48, 48, 0.36)), color-stop(100%, rgba(55, 57, 57, 0.16)));
+            background: -webkit-linear-gradient(left, rgba(48, 48, 48, 1) 0%, rgba(99, 99, 99, 1) 0%, rgba(112, 112, 112, 1) 0%, rgba(84, 84, 84, 1) 0%, rgba(79, 79, 79, 1) 0%, rgba(0, 0, 0, 1) 0%, rgba(20, 20, 20, 1) 0%, rgba(20, 20, 20, 0.73) 32%, rgba(48, 48, 48, 0.36) 76%, rgba(55, 57, 57, 0.16) 100%);
+            background: -o-linear-gradient(left, rgba(48, 48, 48, 1) 0%, rgba(99, 99, 99, 1) 0%, rgba(112, 112, 112, 1) 0%, rgba(84, 84, 84, 1) 0%, rgba(79, 79, 79, 1) 0%, rgba(0, 0, 0, 1) 0%, rgba(20, 20, 20, 1) 0%, rgba(20, 20, 20, 0.73) 32%, rgba(48, 48, 48, 0.36) 76%, rgba(55, 57, 57, 0.16) 100%);
+            background: -ms-linear-gradient(left, rgba(48, 48, 48, 1) 0%, rgba(99, 99, 99, 1) 0%, rgba(112, 112, 112, 1) 0%, rgba(84, 84, 84, 1) 0%, rgba(79, 79, 79, 1) 0%, rgba(0, 0, 0, 1) 0%, rgba(20, 20, 20, 1) 0%, rgba(20, 20, 20, 0.73) 32%, rgba(48, 48, 48, 0.36) 76%, rgba(55, 57, 57, 0.16) 100%);
+            background: linear-gradient(to right, rgba(48, 48, 48, 1) 0%, rgba(99, 99, 99, 1) 0%, rgba(112, 112, 112, 1) 0%, rgba(84, 84, 84, 1) 0%, rgba(79, 79, 79, 1) 0%, rgba(0, 0, 0, 1) 0%, rgba(20, 20, 20, 1) 0%, rgba(20, 20, 20, 0.73) 32%, rgba(48, 48, 48, 0.36) 76%, rgba(55, 57, 57, 0.16) 100%);
+            filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#303030', endColorstr='#373939', GradientType=1);
+        }
+        
+        .btn.next {
+            right: 0px;
+            background: rgba(55, 57, 57, 0.16);
+            background: -moz-linear-gradient(left, rgba(55, 57, 57, 0.16) 0%, rgba(48, 48, 48, 0.36) 24%, rgba(20, 20, 20, 0.73) 68%, rgba(20, 20, 20, 1) 100%);
+            background: -webkit-gradient(left top, right top, color-stop(0%, rgba(55, 57, 57, 0.16)), color-stop(24%, rgba(48, 48, 48, 0.36)), color-stop(68%, rgba(20, 20, 20, 0.73)), color-stop(100%, rgba(20, 20, 20, 1)));
+            background: -webkit-linear-gradient(left, rgba(55, 57, 57, 0.16) 0%, rgba(48, 48, 48, 0.36) 24%, rgba(20, 20, 20, 0.73) 68%, rgba(20, 20, 20, 1) 100%);
+            background: -o-linear-gradient(left, rgba(55, 57, 57, 0.16) 0%, rgba(48, 48, 48, 0.36) 24%, rgba(20, 20, 20, 0.73) 68%, rgba(20, 20, 20, 1) 100%);
+            background: -ms-linear-gradient(left, rgba(55, 57, 57, 0.16) 0%, rgba(48, 48, 48, 0.36) 24%, rgba(20, 20, 20, 0.73) 68%, rgba(20, 20, 20, 1) 100%);
+            background: linear-gradient(to right, rgba(55, 57, 57, 0.16) 0%, rgba(48, 48, 48, 0.36) 24%, rgba(20, 20, 20, 0.73) 68%, rgba(20, 20, 20, 1) 100%);
+            filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#373939', endColorstr='#141414', GradientType=1);
+        }
+        
+        .btn:hover {
+            color: #ffc107;
+        }
+        
+        .btn.pre:hover {
+            background: rgba(20, 20, 20, 0.24);
+            background: -moz-linear-gradient(left, rgba(20, 20, 20, 0.24) 0%, rgba(48, 48, 48, 0.24) 0%, rgba(99, 99, 99, 0.24) 0%, rgba(112, 112, 112, 0.24) 0%, rgba(84, 84, 84, 0.24) 0%, rgba(255, 255, 255, 0.24) 0%, rgba(133, 133, 133, 0.18) 76%, rgba(55, 57, 57, 0.16) 100%);
+            background: -webkit-gradient(left top, right top, color-stop(0%, rgba(20, 20, 20, 0.24)), color-stop(0%, rgba(48, 48, 48, 0.24)), color-stop(0%, rgba(99, 99, 99, 0.24)), color-stop(0%, rgba(112, 112, 112, 0.24)), color-stop(0%, rgba(84, 84, 84, 0.24)), color-stop(0%, rgba(255, 255, 255, 0.24)), color-stop(76%, rgba(133, 133, 133, 0.18)), color-stop(100%, rgba(55, 57, 57, 0.16)));
+            background: -webkit-linear-gradient(left, rgba(20, 20, 20, 0.24) 0%, rgba(48, 48, 48, 0.24) 0%, rgba(99, 99, 99, 0.24) 0%, rgba(112, 112, 112, 0.24) 0%, rgba(84, 84, 84, 0.24) 0%, rgba(255, 255, 255, 0.24) 0%, rgba(133, 133, 133, 0.18) 76%, rgba(55, 57, 57, 0.16) 100%);
+            background: -o-linear-gradient(left, rgba(20, 20, 20, 0.24) 0%, rgba(48, 48, 48, 0.24) 0%, rgba(99, 99, 99, 0.24) 0%, rgba(112, 112, 112, 0.24) 0%, rgba(84, 84, 84, 0.24) 0%, rgba(255, 255, 255, 0.24) 0%, rgba(133, 133, 133, 0.18) 76%, rgba(55, 57, 57, 0.16) 100%);
+            background: -ms-linear-gradient(left, rgba(20, 20, 20, 0.24) 0%, rgba(48, 48, 48, 0.24) 0%, rgba(99, 99, 99, 0.24) 0%, rgba(112, 112, 112, 0.24) 0%, rgba(84, 84, 84, 0.24) 0%, rgba(255, 255, 255, 0.24) 0%, rgba(133, 133, 133, 0.18) 76%, rgba(55, 57, 57, 0.16) 100%);
+            background: linear-gradient(to right, rgba(20, 20, 20, 0.24) 0%, rgba(48, 48, 48, 0.24) 0%, rgba(99, 99, 99, 0.24) 0%, rgba(112, 112, 112, 0.24) 0%, rgba(84, 84, 84, 0.24) 0%, rgba(255, 255, 255, 0.24) 0%, rgba(133, 133, 133, 0.18) 76%, rgba(55, 57, 57, 0.16) 100%);
+            filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#141414', endColorstr='#373939', GradientType=1);
+        }
+        
+        .btn.next:hover {
+            background: rgba(55, 57, 57, 0.16);
+            background: -moz-linear-gradient(left, rgba(55, 57, 57, 0.16) 0%, rgba(133, 133, 133, 0.18) 24%, rgba(255, 255, 255, 0.24) 100%);
+            background: -webkit-gradient(left top, right top, color-stop(0%, rgba(55, 57, 57, 0.16)), color-stop(24%, rgba(133, 133, 133, 0.18)), color-stop(100%, rgba(255, 255, 255, 0.24)));
+            background: -webkit-linear-gradient(left, rgba(55, 57, 57, 0.16) 0%, rgba(133, 133, 133, 0.18) 24%, rgba(255, 255, 255, 0.24) 100%);
+            background: -o-linear-gradient(left, rgba(55, 57, 57, 0.16) 0%, rgba(133, 133, 133, 0.18) 24%, rgba(255, 255, 255, 0.24) 100%);
+            background: -ms-linear-gradient(left, rgba(55, 57, 57, 0.16) 0%, rgba(133, 133, 133, 0.18) 24%, rgba(255, 255, 255, 0.24) 100%);
+            background: linear-gradient(to right, rgba(55, 57, 57, 0.16) 0%, rgba(133, 133, 133, 0.18) 24%, rgba(255, 255, 255, 0.24) 100%);
+            filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#373939', endColorstr='#ffffff', GradientType=1);
+        }
+    </style>
+</head>
+
+<body>
+    <ul class="carousel-ct">
+        <ul class="carousel clearfix">
+            <li>
+                <a href="#"><img src="./img/1.jpg" alt=""></a>
+            </li>
+            <li>
+                <a href="#"><img src="./img/2.jpg" alt=""></a>
+            </li>
+            <li>
+                <a href="#"><img src="./img/3.jpg" alt=""></a>
+            </li>
+            <li>
+                <a href="#"><img src="./img/4.jpg" alt=""></a>
+            </li>
+            <li>
+                <a href="#"><img src="./img/5.jpg" alt=""></a>
+            </li>
+            <li>
+                <a href="#"><img src="./img/6.jpg" alt=""></a>
+            </li>
+        </ul>
+        <ul class="thumbnail cleafix">
+            <li class="active"><img src="./img/thumbnail/1.jpg" alt=""></li>
+            <li><img src="./img/thumbnail/2.jpg" alt=""></li>
+            <li><img src="./img/thumbnail/3.jpg" alt=""></li>
+            <li><img src="./img/thumbnail/4.jpg" alt=""></li>
+            <li><img src="./img/thumbnail/5.jpg" alt=""></li>
+            <li><img src="./img/thumbnail/6.jpg" alt=""></li>
+        </ul>
+        <a href="" class="btn pre"><i class="fa fa-chevron-left" aria-hidden="true"></i></a>
+        <a href="" class="btn next"><i class="fa fa-chevron-right" aria-hidden="true"></i></a>
+        <script src="./move.js"></script>
+        <script>
+            ;let Carousel = (function () {
+                function _Carousel(ct) {
+                    this.ct = ct;
+                    this.carousel = this.ct.querySelector('.carousel');
+                    this.oldLength = this.carousel.childElementCount;
+                    this.firstImg = this.carousel.children[0];
+                    this.lastImg = this.carousel.children[this.oldLength - 1];
+                    this.imgWidth = this.firstImg.offsetWidth;
+                    this.thumbnails = this.ct.querySelectorAll('.thumbnail>li');
+                    this.btns = this.ct.querySelectorAll('.btn');
+                    this.preBtn = this.btns[0];
+                    this.nextBtn = this.btns[1];
+                    this.isClick = false;
+                    this.pageIdx = 0;
+                    this.clock = null;
+                    this.spliceImg();
+                    this.bind();
+                    this.autoPlay();
+                };
+
+                _Carousel.prototype.spliceImg = function () {
+                    let firstCopy = this.firstImg.cloneNode(true),
+                        lastCopy = this.lastImg.cloneNode(true);
+                    this.carousel.style.width = this.imgWidth * (this.oldLength + 2) + 'px';
+                    this.carousel.insertBefore(lastCopy, this.firstImg);
+                    this.carousel.appendChild(firstCopy);
+                    this.carousel.style.left = '-1000px'
+                };
+
+                _Carousel.prototype.bind = function () {
+                    let _this = this;
+                    this.btns.forEach(function (btn) {
+                        btn.addEventListener('click', function (e) {
+                            _this.stopAuto();
+                            e.preventDefault();
+
+                            if (!_this.isClick) {
+                                _this.isClick = true;
+                                if (this.classList.contains('pre')) {
+                                    _this.play('pre');
+                                } else if (this.classList.contains('next')) {
+                                    _this.play('next');
+                                }
+                            }
+                            setTimeout(_this.autoPlay.bind(_this), 0);
+                        });
+                    });
+                    //Note: this.thumbnail.children is HTMLCollection which don't support forEach.
+                    this.thumbnails.forEach(function (singleThumb) {
+                        singleThumb.addEventListener('click', function (e) {
+                            _this.stopAuto();
+                            let targetIdx = [].indexOf.call(_this.thumbnails, this);
+                            console.log(_this.pageIdx, targetIdx)
+                            if (!_this.isClick) {
+                                _this.isClick = true;               
+                                _this.play('jump', _this.pageIdx, targetIdx);
+                            }
+                            setTimeout(_this.autoPlay.bind(_this), 0);
+                        })
+                    });
+                };
+
+                _Carousel.prototype.play = function (dir, curIdx, targetIdx) {
+                    dir = dir || 'next';
+                    let _this = this,
+                        sign;
+                    switch (dir) {
+                        case 'pre':
+                            sign = 1;
+                            break;
+                        case 'next':
+                            sign = -1;
+                            break;
+                    }
+                    let _left = parseInt(getComputedStyle(_this.carousel).left);
+                    // Jump Mode
+                    if (typeof curIdx !== 'undefined' && typeof targetIdx !== 'undefined' && dir === 'jump') {
+                        let indexDif = targetIdx - curIdx;
+                        console.log(indexDif);
+                        _left -= _this.imgWidth * indexDif;
+                        move(_this.carousel, {
+                            left: _left
+                        }, 1000, 'easeBoth', function () {
+                            _this.pageIdx += indexDif;
+                            console.log(`这是轮播的第${_this.pageIdx+1}张图`);
+                            thumbnail(_this.pageIdx);
+                            _this.isClick = false;
+                        });
+                        // Jump Mode End
+                    } else {
+                        // One Step Mode
+                        _left += sign * _this.imgWidth;
+                        move(_this.carousel, {
+                            left: _left
+                        }, 1000, 'easeBoth', function () {
+                            if (sign === 1) {
+                                _this.pageIdx--;
+                                console.log(1);
+                            } else if (sign === -1) {
+                                _this.pageIdx++;
+                            }
+                            console.log(`这是轮播的第${_this.pageIdx+1}张图`);
+                            //判断当前页面索引，边界调整
+                            //越过下边界，索引置为上边界，位置回到第一张
+                            //(最后一张为第一张的拼接副本，此时pageIdx为实际轮播数量+1，即 oldLength)
+                            if (_this.pageIdx === _this.oldLength) {
+                                _this.carousel.style.left = '-' + _this.imgWidth + 'px';
+                                _this.pageIdx = 0;
+                            }
+                            //越过上边界，索引置为下边界，位置回到最后一张
+                            if (_this.pageIdx === -1) {
+                                _this.carousel.style.left = -_this.oldLength * _this.imgWidth +
+                                    'px';
+                                _this.pageIdx = _this.oldLength - 1;
+                            }
+                            thumbnail(_this.pageIdx);
+
+
+                            _this.isClick = false;
+                        });
+                        // One Step Mode End
+                    }
+
+                    function thumbnail(idx) {
+                        _this.thumbnails.forEach(function (singleThumb) {
+                            singleThumb.classList.remove('active');
+                        });
+                        _this.thumbnails[idx].classList.add('active');
+                    }
+                };
+
+                _Carousel.prototype.autoPlay = function (dir) {
+                    let _this = this;
+                    console.log('Auto play： activated')
+                    // dir = dir || 'next';
+                    this.clock = setInterval(_this.play.bind(_this), 3000);
+                };
+
+                _Carousel.prototype.stopAuto = function () {
+                    let _this = this;
+                    console.log('Auto play： terminated')
+                    clearInterval(_this.clock);
+                };
+                
+                return {
+                    start: function (carousels){
+                        carousels.forEach(function(carousel){
+                            new _Carousel(carousel);
+                        })
+                    }
+                }
+            })();
+
+            Carousel.start(document.querySelectorAll('.carousel-ct'));
+
+        </script>
+</body>
+
+</html>

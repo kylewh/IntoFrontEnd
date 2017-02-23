@@ -1,0 +1,410 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Exposure Component Demo</title>
+    <script src="http://code.jquery.com/jquery-2.1.1.min.js"></script>
+</head>
+<style>
+    html,
+    body {
+        margin: 0;
+        padding: 0;
+        position: relative;
+    }
+    
+    ul,
+    li {
+        list-style: none;
+        margin: 0;
+        padding: 0;
+    }
+    
+    .clearfix:after {
+        content: '';
+        display: block;
+        visibility: hidden;
+        clear: both;
+    }
+    
+    .container {
+        width: 800px;
+        margin: 0 auto;
+    }
+    
+    .container li {
+        float: left;
+        margin: 10px 10px;
+    }
+    
+    .container li img {
+        width: 220px;
+        height: 400px;
+        opacity: 0;
+        transition: all 0.5s;
+    }
+
+    .go-top {
+        box-shadow: 1px 1px 5px -1px #ccc;
+        width: 40px;
+        line-height: 40px;
+        font-size: 12px;
+        text-align: center;
+        background-color: #c1b98f;
+        position: fixed;
+        bottom: 10px;
+        right: 10px;
+        color: #FFF;
+        z-index: 1000;
+        font-weight: 100;
+        border-radius: 100%;
+        cursor: pointer;
+    }
+    .go-top:hover {
+        width: 50px;
+        line-height: 50px;
+        bottom: 5px;
+        right: 5px;
+    }
+</style>
+
+<body>
+    <!--<div class="go-top">
+        TOP
+    </div>-->
+    <ul class="container clearfix">
+        <li>
+            <a href="">
+                <img src="" data-src="http://kejian.jirengu.com/data/fe/%E8%AF%BE%E4%BB%B6/32-%E6%87%92%E5%8A%A0%E8%BD%BD/code/girl.jpg"
+                    alt=""></a>
+        </li>
+        <li>
+            <a href="">
+                <img src="" data-src="http://kejian.jirengu.com/data/fe/%E8%AF%BE%E4%BB%B6/32-%E6%87%92%E5%8A%A0%E8%BD%BD/code/girl.jpg"
+                    alt=""></a>
+        </li>
+        <li>
+            <a href="">
+                <img src="" data-src="http://kejian.jirengu.com/data/fe/%E8%AF%BE%E4%BB%B6/32-%E6%87%92%E5%8A%A0%E8%BD%BD/code/girl.jpg"
+                    alt=""></a>
+        </li>
+        <li>
+            <a href="">
+                <img src="" data-src="http://kejian.jirengu.com/data/fe/%E8%AF%BE%E4%BB%B6/32-%E6%87%92%E5%8A%A0%E8%BD%BD/code/girl.jpg"
+                    alt=""></a>
+        </li>
+        <li>
+            <a href="">
+                <img src="" data-src="http://kejian.jirengu.com/data/fe/%E8%AF%BE%E4%BB%B6/32-%E6%87%92%E5%8A%A0%E8%BD%BD/code/girl.jpg"
+                    alt=""></a>
+        </li>
+        <li>
+            <a href="">
+                <img src="" data-src="http://kejian.jirengu.com/data/fe/%E8%AF%BE%E4%BB%B6/32-%E6%87%92%E5%8A%A0%E8%BD%BD/code/girl.jpg"
+                    alt=""></a>
+        </li>
+        <li>
+            <a href="">
+                <img src="" data-src="http://kejian.jirengu.com/data/fe/%E8%AF%BE%E4%BB%B6/32-%E6%87%92%E5%8A%A0%E8%BD%BD/code/girl.jpg"
+                    alt=""></a>
+        </li>
+        <li>
+            <a href="">
+                <img src="" data-src="http://kejian.jirengu.com/data/fe/%E8%AF%BE%E4%BB%B6/32-%E6%87%92%E5%8A%A0%E8%BD%BD/code/girl.jpg"
+                    alt=""></a>
+        </li>
+        <li>
+            <a href="">
+                <img src="" data-src="http://kejian.jirengu.com/data/fe/%E8%AF%BE%E4%BB%B6/32-%E6%87%92%E5%8A%A0%E8%BD%BD/code/girl.jpg"
+                    alt=""></a>
+        </li>
+        <li>
+            <a href="">
+                <img src="" data-src="http://kejian.jirengu.com/data/fe/%E8%AF%BE%E4%BB%B6/32-%E6%87%92%E5%8A%A0%E8%BD%BD/code/girl.jpg"
+                    alt=""></a>
+        </li>
+        <li>
+            <a href="">
+                <img src="" data-src="http://kejian.jirengu.com/data/fe/%E8%AF%BE%E4%BB%B6/32-%E6%87%92%E5%8A%A0%E8%BD%BD/code/girl.jpg"
+                    alt=""></a>
+        </li>
+        <li>
+            <a href="">
+                <img src="" data-src="http://kejian.jirengu.com/data/fe/%E8%AF%BE%E4%BB%B6/32-%E6%87%92%E5%8A%A0%E8%BD%BD/code/girl.jpg"
+                    alt=""></a>
+        </li>
+        <li>
+            <a href="">
+                <img src="" data-src="http://kejian.jirengu.com/data/fe/%E8%AF%BE%E4%BB%B6/32-%E6%87%92%E5%8A%A0%E8%BD%BD/code/girl.jpg"
+                    alt=""></a>
+        </li>
+        <li>
+            <a href="">
+                <img src="" data-src="http://kejian.jirengu.com/data/fe/%E8%AF%BE%E4%BB%B6/32-%E6%87%92%E5%8A%A0%E8%BD%BD/code/girl.jpg"
+                    alt=""></a>
+        </li>
+        <li>
+            <a href="">
+                <img src="" data-src="http://kejian.jirengu.com/data/fe/%E8%AF%BE%E4%BB%B6/32-%E6%87%92%E5%8A%A0%E8%BD%BD/code/girl.jpg"
+                    alt=""></a>
+        </li>
+        <li>
+            <a href="">
+                <img src="" data-src="http://kejian.jirengu.com/data/fe/%E8%AF%BE%E4%BB%B6/32-%E6%87%92%E5%8A%A0%E8%BD%BD/code/girl.jpg"
+                    alt=""></a>
+        </li>
+        <li>
+            <a href="">
+                <img src="" data-src="http://kejian.jirengu.com/data/fe/%E8%AF%BE%E4%BB%B6/32-%E6%87%92%E5%8A%A0%E8%BD%BD/code/girl.jpg"
+                    alt=""></a>
+        </li>
+        <li>
+            <a href="">
+                <img src="" data-src="http://kejian.jirengu.com/data/fe/%E8%AF%BE%E4%BB%B6/32-%E6%87%92%E5%8A%A0%E8%BD%BD/code/girl.jpg"
+                    alt=""></a>
+        </li>
+        <li>
+            <a href="">
+                <img src="" data-src="http://kejian.jirengu.com/data/fe/%E8%AF%BE%E4%BB%B6/32-%E6%87%92%E5%8A%A0%E8%BD%BD/code/girl.jpg"
+                    alt=""></a>
+        </li>
+        <li>
+            <a href="">
+                <img src="" data-src="http://kejian.jirengu.com/data/fe/%E8%AF%BE%E4%BB%B6/32-%E6%87%92%E5%8A%A0%E8%BD%BD/code/girl.jpg"
+                    alt=""></a>
+        </li>
+        <li>
+            <a href="">
+                <img src="" data-src="http://kejian.jirengu.com/data/fe/%E8%AF%BE%E4%BB%B6/32-%E6%87%92%E5%8A%A0%E8%BD%BD/code/girl.jpg"
+                    alt=""></a>
+        </li>
+        <li>
+            <a href="">
+                <img src="" data-src="http://kejian.jirengu.com/data/fe/%E8%AF%BE%E4%BB%B6/32-%E6%87%92%E5%8A%A0%E8%BD%BD/code/girl.jpg"
+                    alt=""></a>
+        </li>
+        <li>
+            <a href="">
+                <img src="" data-src="http://kejian.jirengu.com/data/fe/%E8%AF%BE%E4%BB%B6/32-%E6%87%92%E5%8A%A0%E8%BD%BD/code/girl.jpg"
+                    alt=""></a>
+        </li>
+        <li>
+            <a href="">
+                <img src="" data-src="http://kejian.jirengu.com/data/fe/%E8%AF%BE%E4%BB%B6/32-%E6%87%92%E5%8A%A0%E8%BD%BD/code/girl.jpg"
+                    alt=""></a>
+        </li>
+        <li>
+            <a href="">
+                <img src="" data-src="http://kejian.jirengu.com/data/fe/%E8%AF%BE%E4%BB%B6/32-%E6%87%92%E5%8A%A0%E8%BD%BD/code/girl.jpg"
+                    alt=""></a>
+        </li>
+        <li>
+            <a href="">
+                <img src="" data-src="http://kejian.jirengu.com/data/fe/%E8%AF%BE%E4%BB%B6/32-%E6%87%92%E5%8A%A0%E8%BD%BD/code/girl.jpg"
+                    alt=""></a>
+        </li>
+        <li>
+            <a href="">
+                <img src="" data-src="http://kejian.jirengu.com/data/fe/%E8%AF%BE%E4%BB%B6/32-%E6%87%92%E5%8A%A0%E8%BD%BD/code/girl.jpg"
+                    alt=""></a>
+        </li>
+        <li>
+            <a href="">
+                <img src="" data-src="http://kejian.jirengu.com/data/fe/%E8%AF%BE%E4%BB%B6/32-%E6%87%92%E5%8A%A0%E8%BD%BD/code/girl.jpg"
+                    alt=""></a>
+        </li>
+        <li>
+            <a href="">
+                <img src="" data-src="http://kejian.jirengu.com/data/fe/%E8%AF%BE%E4%BB%B6/32-%E6%87%92%E5%8A%A0%E8%BD%BD/code/girl.jpg"
+                    alt=""></a>
+        </li>
+        <li>
+            <a href="">
+                <img src="" data-src="http://kejian.jirengu.com/data/fe/%E8%AF%BE%E4%BB%B6/32-%E6%87%92%E5%8A%A0%E8%BD%BD/code/girl.jpg"
+                    alt=""></a>
+        </li>
+        <li>
+            <a href="">
+                <img src="" data-src="http://kejian.jirengu.com/data/fe/%E8%AF%BE%E4%BB%B6/32-%E6%87%92%E5%8A%A0%E8%BD%BD/code/girl.jpg"
+                    alt=""></a>
+        </li>
+        <li>
+            <a href="">
+                <img src="" data-src="http://kejian.jirengu.com/data/fe/%E8%AF%BE%E4%BB%B6/32-%E6%87%92%E5%8A%A0%E8%BD%BD/code/girl.jpg"
+                    alt=""></a>
+        </li>
+        <li>
+            <a href="">
+                <img src="" data-src="http://kejian.jirengu.com/data/fe/%E8%AF%BE%E4%BB%B6/32-%E6%87%92%E5%8A%A0%E8%BD%BD/code/girl.jpg"
+                    alt=""></a>
+        </li>
+        <li>
+            <a href="">
+                <img src="" data-src="http://kejian.jirengu.com/data/fe/%E8%AF%BE%E4%BB%B6/32-%E6%87%92%E5%8A%A0%E8%BD%BD/code/girl.jpg"
+                    alt=""></a>
+        </li>
+        <li>
+            <a href="">
+                <img src="" data-src="http://kejian.jirengu.com/data/fe/%E8%AF%BE%E4%BB%B6/32-%E6%87%92%E5%8A%A0%E8%BD%BD/code/girl.jpg"
+                    alt=""></a>
+        </li>
+        <li>
+            <a href="">
+                <img src="" data-src="http://kejian.jirengu.com/data/fe/%E8%AF%BE%E4%BB%B6/32-%E6%87%92%E5%8A%A0%E8%BD%BD/code/girl.jpg"
+                    alt=""></a>
+        </li>
+        <li>
+            <a href="">
+                <img src="" data-src="http://kejian.jirengu.com/data/fe/%E8%AF%BE%E4%BB%B6/32-%E6%87%92%E5%8A%A0%E8%BD%BD/code/girl.jpg"
+                    alt=""></a>
+        </li>
+        <li>
+            <a href="">
+                <img src="" data-src="http://kejian.jirengu.com/data/fe/%E8%AF%BE%E4%BB%B6/32-%E6%87%92%E5%8A%A0%E8%BD%BD/code/girl.jpg"
+                    alt=""></a>
+        </li>
+        <li>
+            <a href="">
+                <img src="" data-src="http://kejian.jirengu.com/data/fe/%E8%AF%BE%E4%BB%B6/32-%E6%87%92%E5%8A%A0%E8%BD%BD/code/girl.jpg"
+                    alt=""></a>
+        </li>
+        <li>
+            <a href="">
+                <img src="" data-src="http://kejian.jirengu.com/data/fe/%E8%AF%BE%E4%BB%B6/32-%E6%87%92%E5%8A%A0%E8%BD%BD/code/girl.jpg"
+                    alt=""></a>
+        </li>
+    </ul>
+    <script>
+        ;let Exposure = (function () {
+            function _Exposure(ct) {
+                this.ct = ct;
+                console.log(ct);
+                this.lock = undefined;
+                this.imgsLength = this.ct.querySelectorAll('img:not([class ~="loaded"])').length;
+                this.checkLock = false;
+                this.checkShow();
+                this.bind();
+            }
+
+            _Exposure.prototype.checkShow = function () {
+                let _this = this;
+                this.imgs = this.ct.querySelectorAll('img:not([class ~="loaded"])');
+                this.imgs.forEach(function (img) {
+                    if (_this.isVisible(img)) {
+                        _this.load(img);
+                    }
+                });
+                console.log(`Just traversed ${_this.imgs.length} unloaded img elements.`);
+            };
+
+            _Exposure.prototype.bind = function () {
+                //buffering && recycle
+                let _this = this;
+                window.addEventListener('scroll', function (e) {
+                    if (_this.clock) {
+                        clearTimeout(_this.clock);
+                    }
+                    _this.clock = setTimeout(_this.checkShow.bind(_this), 300);
+                });
+            };
+
+            _Exposure.prototype.isVisible = function (ele) {
+                let wHeight = document.documentElement.clientHeight,
+                    wScrollTop = document.body.scrollTop,
+                    eleWOffsetTop = getElementTop(ele), // top to up border of Window
+                    eleHeight = ele.getBoundingClientRect().height;
+
+                if (wScrollTop + wHeight > eleWOffsetTop && wScrollTop < eleWOffsetTop + eleHeight) {
+                    return true;
+                } else {
+                    return false;
+                }
+
+                function getElementTop(ele) {
+                    let actualTop = ele.offsetTop,
+                        current = ele.offsetParent;
+                    while (current !== null) {
+                        actualTop += current.offsetTop;
+                        current = current.offsetParent;
+                    }
+                    return actualTop;
+                }
+            };
+
+            _Exposure.prototype.load = function (ele) {
+                let _src = ele.getAttribute('data-src');
+                ele.classList.add('loaded');
+                ele.setAttribute('src', _src);
+                setTimeout(function () {
+                    ele.style.opacity = 1;
+                }, 0);
+            };
+
+            return {
+                start: function (cts) {
+                    cts.forEach(function (ct) {
+                        new _Exposure(ct);
+                    })
+                }
+            };
+        })();
+
+        let GoTop = (function (){
+            function _GoTop (eleCt, scrollCt) {
+                this.scrollCt = scrollCt || window;
+                this.eleCt = eleCt;
+                console.log(this.eleCt);
+                this.btn = document.createElement('div');
+                this.createNode();
+                this.bind();
+            }
+            _GoTop.prototype.createNode = function () {
+                this.btn.className = 'go-top';
+                this.btn.innerHTML = 'TOP';
+                this.btn.style.display = 'none';
+                this.eleCt.appendChild(this.btn);
+            };
+            _GoTop.prototype.show = function () {
+                this.btn.style.display = 'block';
+            };
+            _GoTop.prototype.hide = function () {
+                this.btn.style.display = 'none';
+            };
+            _GoTop.prototype.bind = function () {
+                let self = this;
+                this.scrollCt.addEventListener('scroll', function(){
+                    // window object have scrollY that equal to DOMelements' scrollTop;
+                    let scrollTop = self.scrollCt == window ? self.scrollCt.scrollY : self.scrollCt.scrollTop;
+
+                    if (scrollTop > 400 ) {
+                        self.show();
+                    } else {
+                        console.log(1111111);
+                        self.hide();
+                    }
+                });
+
+                this.btn.addEventListener('click', function (){
+                    if ( self.scrollCt == window ) {
+                        window.scrollTo(0,0);
+                    } else {
+                        self.scrollCt.scrollTop = 0;
+                    }
+                })
+            };
+
+            return {
+                init: function(scrollCt, eleCt) {
+                    new _GoTop(scrollCt, eleCt);
+                }
+            }
+        })();
+
+        Exposure.start(document.querySelectorAll('.container'));
+        GoTop.init(document.querySelectorAll('.container')[0]);
+
+    </script>
+</body>
+
+</html>
