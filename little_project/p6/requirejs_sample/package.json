@@ -1,0 +1,16 @@
+{
+  "name": "requirejs_sample",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "start": "r.js -o ./js/build.js"
+  },
+  "author": "KYLEWH",
+  "license": "ISC",
+  "devDependencies": {
+    "babel-preset-env": "^1.1.10",
+    "r.js": "^1.0.3",
+    "requirejs": "^2.3.3"
+  }
+}
