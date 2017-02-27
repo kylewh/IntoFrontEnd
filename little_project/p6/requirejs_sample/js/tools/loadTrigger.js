@@ -36,6 +36,7 @@ define('tools/loadTrigger', ['jquery'], function ($) {
             var _this = this;
             $.each(this.$trigger, function () {
                 if (_this.isVisible($(this))) {
+                    console.log(1);
                     _this.callback($(this));
                 }
             });
