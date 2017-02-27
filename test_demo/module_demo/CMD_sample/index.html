@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+    <style>
+        html,
+        body {
+            margin: 0;
+            padding: 0;
+            background: #e1f5fe;
+            font-family: 'Source code pro';
+        }
+        
+        .layout {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 600px;
+            height: 440px;
+            background: #424242;
+            text-align: center;
+        }
+        
+        h2 {
+            font-size: 20px;
+            font-weight: 400;
+            line-height: 80px;
+            margin: 0;
+            padding: 0;
+            background: #4caf50;
+            color: #fff;
+        }
+        
+        #log {
+            height: 360px;
+            overflow: auto;
+            text-align: left;
+            padding: 0px 40px;
+        }
+
+        #log p {
+            list-style: none;
+            font-size: 14px;
+            color: #fff;
+            font-weight: 100;
+        }
+        #log p>span.count {
+            color: #fff;
+        }
+        #log p.rq {
+            color: #dce775;
+        }
+
+        #log p.exec {
+            color: #80deea;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="layout">
+        <h2>CMD's Loading & Executing Process</h2>
+        <div id="log">
+        </div>
+    </div>
+    <script src="./sea-modules/sea.js"></script>
+    <script>
+        seajs.config({
+            base: "./sea-modules/",
+            alias: {
+
+            }
+        })
+
+        seajs.use('./js/index');
+    </script>
+</body>
+
+</html>
