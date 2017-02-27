@@ -92,6 +92,7 @@ define("tools/carousel", ['jquery'], function ($) {
                     _this.isClick = false;
                 });
             } else {
+                console.log(sign+'='+'_this.imgCtSize');
                 _this.$carousel.animate({
                     left: sign+'='+_this.imgCtSize
                 }, function () {

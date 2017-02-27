@@ -1,7 +1,7 @@
 define('app/index', ['jquery', 'tools/carousel', 'tools/goTop', 'tools/jsonp', 'tools/loadTrigger', 'tools/waterFall'],
     function ($, Carousel, GoTop, jsonp, LoadTrigger, WaterFall) {
         var jsonp_param = {
-            url: 'https://platform.sina.com.cn/slide/album_tech',
+            url: 'http://platform.sina.com.cn/slide/album_tech',
             data: {
                 app_key: '1271687855',
                 num: 10,
@@ -14,8 +14,7 @@ define('app/index', ['jquery', 'tools/carousel', 'tools/goTop', 'tools/jsonp', '
         //initialize
         Carousel.init($('.carousel-ct').eq(0));
         LoadTrigger.init($('.waterfall-ct > .news-ct'), $('.waterfall-ct > .trigger'), 'click', jsonp, jsonp_param);
-        LoadTrigger.init($('.timeline > li'), $('.timeline > li').not('.loaded'), 'scroll', loadImg);
-        LoadTrigger.init($('section .container'), $('section .container>h4'), 'scroll', loadTab);
+        LoadTrigger.init($('.timeline > li'), $('.timeline > li').not('.loaded'), 'scroll', load);
         GoTop.init($('body').eq(0), $('body,html'), 400);
 
 
@@ -76,14 +75,9 @@ define('app/index', ['jquery', 'tools/carousel', 'tools/goTop', 'tools/jsonp', '
         }
 
         // layzLoad callback function part
-        function loadImg($ele) {
+        function load($ele) {
             $ele.find('img').eq(0).attr('src', $ele.find('img').eq(0).attr('data-src'));
             $ele.addClass('loaded');
             $ele.css("opacity", 1);
-        }
-
-        function loadTab($ele) {
-            $('.nav-list > li').removeClass('active');
-            $('.nav-list > li').eq($('section .container>h4').index($ele)).addClass('active');
         }
     });
