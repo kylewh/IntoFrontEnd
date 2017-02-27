@@ -122,6 +122,7 @@
 	
 	.nav-list li {
 		float: left;
+		transition: 0.2s all;
 	}
 	
 	.nav-list li a {
@@ -257,6 +258,12 @@
 		font-weight: 700;
 		font-size: 18px;
 		padding: 20px 40px;
+		transition: all 0.5s;
+	}
+
+	header .intro-text .btn:hover {
+		background-color: transparent;
+		color: #fed136;
 	}
 	
 	#service {}
@@ -266,8 +273,14 @@
 		float: left;
 		padding: 0 15px;
 		box-sizing: border-box;
+		transition: all 0.5s;
+		cursor: default;
 	}
-	
+
+	.sv-card:hover > .sv-icon{
+		background: #f44336;
+	}
+
 	.sv-card .sv-icon {
 		display: inline-block;
 		vertical-align: middle;
@@ -305,6 +318,16 @@
 	
 	#portfolio {
 		background-color: #f7f7f7;
+		position: relative;
+	}
+
+	#portfolio .overlay {
+		position: absolute;
+		height: 100%;
+		width: 100%;
+		background: grey;
+		opacity: 0;
+		z-index: 0;
 	}
 	
 	#portfolio .container {
@@ -390,7 +413,12 @@
 		top: 0;
 		left: 0;
 		opacity: 0;
-		transition: opacity 1s;
+		transition: 1s opacity;
+	}
+
+	.waterfall-ct .item:hover {
+		z-index: 6;
+		transform:  translate3d(0, 0, -100px) scale3d(1.2,1.2,1.2);
 	}
 	
 	.waterfall-ct .item img {
@@ -414,9 +442,8 @@
 	}
 	
 	.waterfall-ct .trigger {
-		color: #009688;
-		background-color: #f7f7f7;
-		border-color: #009688;
+		color: white;
+		background-color: #F44336;;
 		font-weight: 700;
 		font-size: 18px;
 		padding: 20px 40px;
@@ -424,8 +451,7 @@
 	}
 	
 	.waterfall-ct .trigger:hover {
-		color: white;
-		background-color: #009688;
+		background-color: #ff7043;
 	}
 	
 	.hide {
@@ -470,7 +496,7 @@
 	}
 	
 	#about .timeline>li {
-		transition: 0.5s all;
+		transition: 1s all;
 		opacity: 0;
 		position: relative;
 		margin-bottom: 100px;
@@ -663,6 +689,7 @@
 	
 	footer {
 		padding: 25px 0;
+		background: #f7f7f7;
 	}
 	
 	footer .copyright,
