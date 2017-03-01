@@ -1,0 +1,61 @@
+.waterfall-ct .item {
+    width: 280px;
+    position: absolute;
+    box-shadow: 1px 1px 12px #bdbdbd;
+    margin: 10px;
+    padding-bottom: 20px;
+    background-color: #fff;
+    top: 0;
+    left: 0;
+    opacity: 0;
+    transition: 1s opacity;
+}
+
+.waterfall-ct .item:hover {
+    z-index: 6;
+    transform: translate3d(0, 0, -100px) scale3d(1.2, 1.2, 1.2);
+}
+
+.waterfall-ct .item img {
+    width: 280px;
+}
+
+.waterfall-ct .header {
+    border-bottom: 1px dotted rgb(47, 152, 66);
+    ;
+    line-height: 40px;
+    color: #616161;
+    margin: 0 15px;
+}
+
+.waterfall-ct .des {
+    margin-top: 10px;
+    font-size: 12px;
+    line-height: 1.8;
+    color: #9e9e9e;
+    margin: 10px 15px;
+}
+
+.waterfall-ct .trigger {
+    color: white;
+    background-color: #F44336;
+    ;
+    font-weight: 700;
+    font-size: 18px;
+    padding: 20px 40px;
+    transition: 0.5s all;
+}
+
+.waterfall-ct .trigger:hover {
+    background-color: #ff7043;
+}
+
+.hide {
+    visibility: hidden;
+    display: block;
+    height: 0;
+}
+
+.waterfall-ct .none {
+    display: none;
+}

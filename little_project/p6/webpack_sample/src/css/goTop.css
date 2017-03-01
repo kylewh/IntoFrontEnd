@@ -1,0 +1,21 @@
+.go-top {
+    box-shadow: 1px 1px 5px -1px #ccc;
+    width: 60px;
+    line-height: 60px;
+    font-size: 12px;
+    text-align: center;
+    background-color: #c1b98f;
+    position: fixed;
+    bottom: 10px;
+    right: 10px;
+    color: #FFF;
+    z-index: 1000;
+    font-weight: 100;
+    border-radius: 100%;
+    cursor: pointer;
+    opacity: 0.4;
+}
+
+.go-top:hover {
+    opacity: 0.8;
+}

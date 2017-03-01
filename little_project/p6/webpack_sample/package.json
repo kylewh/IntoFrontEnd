@@ -1,0 +1,24 @@
+{
+  "name": "requirejs_sample",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "start": "r.js -o ./js/build.js"
+  },
+  "author": "KYLEWH",
+  "license": "ISC",
+  "devDependencies": {
+    "babel-core": "^6.23.1",
+    "babel-loader": "^6.3.2",
+    "babel-preset-env": "^1.1.10",
+    "babel-preset-es2015": "^6.22.0",
+    "r.js": "^1.0.3",
+    "requirejs": "^2.3.3"
+  },
+  "dependencies": {
+    "babel-polyfill": "^6.23.0",
+    "jquery": "^3.1.1",
+    "webpack": "^2.2.1"
+  }
+}

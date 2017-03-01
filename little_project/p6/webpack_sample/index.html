@@ -1,0 +1,304 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+	<meta charset="UTF-8">
+	<title>RequireJS_demo</title>
+	<link rel="stylesheet" type="text/css" href="./src/css/normalize.css" />
+	<link rel="stylesheet" type="text/css" href="./src/css/index.css" />
+	<link href="./src/css/font-awesome-4.7.0/css/font-awesome.min.css" rel="stylesheet">
+	<link href="https://fonts.googleapis.com/css?family=Droid+Serif|Kaushan+Script|Montserrat:400,700|Roboto+Slab" rel="stylesheet">
+</head>
+
+<body>
+	<nav class="fixed">
+		<div class="container clearfix">
+			<a class="logo fl">Start Bootstrap</a>
+			<ul class="nav-list fr">
+				<li class="active">
+					<a href="#service">SERVICES</a>
+				</li>
+				<li>
+					<a href="#portfolio">PORTFOLIO</a>
+				</li>
+				<li>
+					<a href="#about">ABOUT</a>
+				</li>
+				<li>
+					<a href="#team">TEAM</a>
+				</li>
+				<li>
+					<a href="#contact">CONTACT</a>
+				</li>
+			</ul>
+		</div>
+	</nav>
+	<header>
+		<div class="container">
+			<div class="intro-text text-center">
+				<h3 class="text-reset">Welcome To Our Studio!</h3>
+				<h2 class="text-reset">IT'S NICE TO MEET YOU</h2>
+				<a href="#service" class="btn">TELL ME MORE</a>
+			</div>
+		</div>
+		<ul class="carousel-ct">
+			<ul class="carousel clearfix">
+				<li>
+					<img src="./src/img/1.jpg" alt="">
+				</li>
+				<li>
+					<img src="./src/img/2.jpg" alt="">
+				</li>
+				<li>
+					<img src="./src/img/3.jpg" alt="">
+				</li>
+				<li>
+					<img src="./src/img/4.jpg" alt="">
+				</li>
+				<li>
+					<img src="./src/img/5.jpg" alt="">
+				</li>
+				<li>
+					<img src="./src/img/6.jpg" alt="">
+				</li>
+			</ul>
+			<ul class="thumbnail cleafix">
+				<li class="active"><img src="./src/img/thumbnail/1.jpg" alt=""></li>
+				<li><img src="./src/img/thumbnail/2.jpg" alt=""></li>
+				<li><img src="./src/img/thumbnail/3.jpg" alt=""></li>
+				<li><img src="./src/img/thumbnail/4.jpg" alt=""></li>
+				<li><img src="./src/img/thumbnail/5.jpg" alt=""></li>
+				<li><img src="./src/img/thumbnail/6.jpg" alt=""></li>
+			</ul>
+			<a href="" class="btn pre"><i class="fa fa-chevron-left" aria-hidden="true"></i></a>
+			<a href="" class="btn next"><i class="fa fa-chevron-right" aria-hidden="true"></i></a>
+		</ul>
+	</header>
+	<section id="service" class="clearfix">
+		<div class="container text-center clearfix">
+			<h4 class="text-reset section-header">SERVICES</h4>
+			<h6 class="text-reset section-sub-header">Lorem ipsum dolor sit amet consectetur.</h6>
+			<div class="sv-card">
+				<span class="sv-icon">
+						<i class="fa fa-shopping-cart"></i>
+					</span>
+				<h5 class="sv-card-title">E-Commerce</h5>
+				<p class="sv-card-detail">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Minima maxime quam architecto quo inventore harum ex magni,
+					dicta impedit.</p>
+			</div>
+			<div class="sv-card">
+				<span class="sv-icon">
+						<i class="fa fa-laptop"></i>
+					</span>
+				<h5 class="sv-card-title">Responsive Design</h5>
+				<p class="sv-card-detail">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Minima maxime quam architecto quo inventore harum ex magni,
+					dicta impedit.</p>
+			</div>
+			<div class="sv-card">
+				<span class="sv-icon">
+						<i class="fa fa-lock"></i>
+					</span>
+				<h5 class="sv-card-title">Web Security</h5>
+				<p class="sv-card-detail">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Minima maxime quam architecto quo inventore harum ex magni,
+					dicta impedit.</p>
+			</div>
+		</div>
+	</section>
+	<section id="portfolio" class="clearfix">
+		<div class="container text-center clearfix">
+			<h4 class="text-reset section-header">PORTFOLIO</h4>
+			<h6 class="text-reset section-sub-header">Lorem ipsum dolor sit amet consectetur.</h6>
+			<span class="waterfall-ct">
+				<ul class="news-ct">
+					<!--这里不再使用占位item进行计算，而是直接显式给nodeWidth赋值,否则在页面resize后的排版在第一次遍历时index=0处会计入此hide元素的outerheight（不为0），使得出现多余空隙-->
+					<!--<li class="item none">For calculation</li>-->
+					<!--<li class="item">
+							<a href="#"><img src="http://www.sinaimg.cn/dy/slidenews/5_t160/2017_05/453_84709_824801.jpg" alt=""></a>
+							<h4 class="header">大象脚推乌龟前行似踢足球</h4>
+							<p class="des">一只闲得无聊的大象在草地漫步时发现一只豹纹陆龟，伸出大脚踢了踢乌龟。</p>
+						</li>-->
+				</ul>
+				<span class="trigger btn" >Load More</span>
+		</div>
+		</div>
+	</section>
+	<section id="about" class="clearfix text-center">
+		<div class="container clearfix">
+			<h4 class="text-reset section-header">ABOUT</h4>
+			<h6 class="text-reset section-sub-header">Lorem ipsum dolor sit amet consectetur.</h6>
+			<ul class="timeline clearfix">
+				<li class="clearfix">
+					<div class="timeline-image">
+						<img src="" data-src="./src/img/timeline-1.jpg" alt="" />
+					</div>
+					<div class="timeline-introtext left-text fl">
+						<h5 class="timeline-heading">2009-2011</h5>
+						<h5 class="timeline-heading">Our Humble Beginnings</h5>
+						<p class="timeline-detail">
+							Lorem ipsum dolor sit amet, consectetur adipisicing elit. Sunt ut voluptatum eius sapiente, totam reiciendis temporibus qui
+							quibusdam, recusandae sit vero unde, sed, incidunt et ea quo dolore laudantium consectetur!
+						</p>
+					</div>
+				</li>
+				<li class="clearfix">
+					<div class="timeline-image">
+						<img src="" data-src="./src/img/timeline-2.jpg" alt="" />
+					</div>
+					<div class="timeline-introtext right-text fr">
+						<h5 class="timeline-heading">MARCH 2011</h5>
+						<h5 class="timeline-heading">An Agency is Born</h5>
+						<p class="timeline-detail">
+							Lorem ipsum dolor sit amet, consectetur adipisicing elit. Sunt ut voluptatum eius sapiente, totam reiciendis temporibus qui
+							quibusdam, recusandae sit vero unde, sed, incidunt et ea quo dolore laudantium consectetur!
+						</p>
+					</div>
+				</li>
+				<li class="clearfix">
+					<div class="timeline-image">
+						<img src="" data-src="./src/img/timeline-3.jpg" alt="" />
+					</div>
+					<div class="timeline-introtext left-text fl">
+						<h5 class="timeline-heading">DECEMBER 2012</h5>
+						<h5 class="timeline-heading">Transition to Full Service</h5>
+						<p class="timeline-detail">
+							Lorem ipsum dolor sit amet, consectetur adipisicing elit. Sunt ut voluptatum eius sapiente, totam reiciendis temporibus qui
+							quibusdam, recusandae sit vero unde, sed, incidunt et ea quo dolore laudantium consectetur!
+						</p>
+					</div>
+				</li>
+				<li class="clearfix">
+					<div class="timeline-image">
+						<img src="" data-src="./src/img/timeline-4.jpg" alt="" />
+					</div>
+					<div class="timeline-introtext right-text fr">
+						<h5 class="timeline-heading">JULY 2014</h5>
+						<h5 class="timeline-heading">Phase Two Expansion</h5>
+						<p class="timeline-detail">
+							Lorem ipsum dolor sit amet, consectetur adipisicing elit. Sunt ut voluptatum eius sapiente, totam reiciendis temporibus qui
+							quibusdam, recusandae sit vero unde, sed, incidunt et ea quo dolore laudantium consectetur!
+						</p>
+					</div>
+				</li>
+				<li class="clearfix">
+					<div class="timeline-image">
+						<h4 class="icon-text">Be Part
+							<br>Of Our
+							<br>Story!
+						</h4>
+					</div>
+				</li>
+			</ul>
+			<span class="hide load-trrigger"><!--Load Trigger--></span>
+		</div>
+	</section>
+	<section id="team" class="clearfix">
+		<div class="container text-center">
+			<h4 class="text-reset section-header">OUR AMAZING TEAM</h4>
+			<h6 class="text-reset section-sub-header">Lorem ipsum dolor sit amet consectetur.</h6>
+			<div class="card-wrap">
+				<div class="team-card">
+					<img class="team-member-profile" src="./src/img/team-1.jpg" alt="" />
+					<h4 class="member-name">Kay Garland</h4>
+					<p class="member-intro">Lead Designer</p>
+					<ul class="social-btns">
+						<li>
+							<a href=""><i class="fa fa-twitter"></i></a>
+						</li>
+						<li>
+							<a href=""><i class="fa fa-facebook"></i></a>
+						</li>
+						<li>
+							<a href=""><i class="fa fa-linkedin"></i></a>
+						</li>
+					</ul>
+				</div>
+			</div>
+			<div class="card-wrap">
+				<div class="team-card">
+					<img class="team-member-profile" src="./src/img/team-2.jpg" alt="" />
+					<h4 class="member-name">Larry Parker</h4>
+					<p class="member-intro">Lead Marketer</p>
+					<ul class="social-btns">
+						<li>
+							<a href=""><i class="fa fa-twitter"></i></a>
+						</li>
+						<li>
+							<a href=""><i class="fa fa-facebook"></i></a>
+						</li>
+						<li>
+							<a href=""><i class="fa fa-linkedin"></i></a>
+						</li>
+					</ul>
+				</div>
+			</div>
+			<div class="card-wrap">
+				<div class="team-card">
+					<img class="team-member-profile" src="./src/img/team-3.jpg" alt="" />
+					<h4 class="member-name">Diana Pertersen</h4>
+					<p class="member-intro">Lead Developer</p>
+					<ul class="social-btns">
+						<li>
+							<a href=""><i class="fa fa-twitter"></i></a>
+						</li>
+						<li>
+							<a href=""><i class="fa fa-facebook"></i></a>
+						</li>
+						<li>
+							<a href=""><i class="fa fa-linkedin"></i></a>
+						</li>
+					</ul>
+				</div>
+			</div>
+		</div>
+	</section>
+	<aside id="clients">
+		<div class="container">
+			<ul class="client-list clearfix">
+				<li>
+					<a href=""><img src="./src/img/client-1.jpg" alt="" /></a>
+				</li>
+				<li>
+					<a href=""><img src="./src/img/client-2.jpg" alt="" /></a>
+				</li>
+				<li>
+					<a href=""><img src="./src/img/client-3.jpg" alt="" /></a>
+				</li>
+				<li>
+					<a href=""><img src="./src/img/client-4.jpg" alt="" /></a>
+				</li>
+			</ul>
+		</div>
+	</aside>
+	<section id="contact">
+		<div class="container text-center">
+			<h4 class="text-reset section-header white">CONTACT US</h4>
+			<h6 class="text-reset section-sub-header">Lorem ipsum dolor sit amet consectetur.</h6>
+			<form class="clearfix" action="">
+				<div class="input-group fl">
+					<input type="text" class="input-text" placeholder="Your Name *" id="name">
+					<input type="text" class="input-text" placeholder="Your EMAIL *" id="name">
+					<input type="text" class="input-text" placeholder="Your PHONE *" id="name">
+				</div>
+				<textarea name="message" placeholder="YOUR MESSAGE *"></textarea>
+			</form>
+			<button class="btn" type="submit">SEND MESSAGE</button>
+		</div>
+	</section>
+	<footer>
+		<div class="container text-center">
+			<span class="copyright">Copyright © Your Website 2014</span>
+			<ul class="social-btns">
+				<li><a href="#"><i class="fa fa-twitter"></i></a></li>
+				<li><a href="#"><i class="fa fa-facebook"></i></a></li>
+				<li><a href="#"><i class="fa fa-linkedin"></i></a></li>
+			</ul>
+			<ul class="site-links">
+				<li><a href="#">Privacy Policy</a></li>
+				<li><a href="#">Terms of Use</a></li>
+			</ul>
+		</div>
+	</footer>
+	<script src="./bin/app.bundle.js"></script>
+</body>
+
+</html>

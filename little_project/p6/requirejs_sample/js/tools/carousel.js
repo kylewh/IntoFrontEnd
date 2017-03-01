@@ -18,7 +18,7 @@ define("tools/carousel", ['jquery'], function ($) {
             this.setSize();
             this.bind();
             this.autoPlay();
-            // console.log(this.imgCtSize);
+            //console.log(this.imgCtSize);
         }
 
         _Carousel.prototype.spliceImg = function () {
