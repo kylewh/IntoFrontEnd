@@ -23,7 +23,7 @@ var LoadTrigger = (function () {
                 if (_this.clock) {
                     clearTimeout(_this.clock);
                 }
-                _this.clock = setTimeout(_this.checkShow.bind(_this), 300);
+                _this.clock = setTimeout(_this.checkShow.bind(_this), 100);
             });
         } else if (this.event === 'click') {
             this.callback(_this.settings);
@@ -37,7 +37,6 @@ var LoadTrigger = (function () {
         var _this = this;
         $.each(this.$trigger, function () {
             if (_this.isVisible($(this))) {
-                console.log(1);
                 _this.callback($(this));
             }
         });

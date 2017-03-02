@@ -22,7 +22,7 @@ var jsonp = require('./tools/jsonp');
 var WaterFall = require('./tools/waterFall');
 LoadTrigger.init($('.waterfall-ct > .news-ct'), $('.waterfall-ct > .trigger'), 'click', jsonp, jsonp_param);
 LoadTrigger.init($('.timeline > li'), $('.timeline > li').not('.loaded'), 'scroll', loadImg);
-LoadTrigger.init($('section .container'), $('section .container>h4'), 'scroll', loadTab);
+LoadTrigger.init($('section .container'), $('section .container'), 'scroll', loadTab);
 
 var GoTop = require('./tools/goTop');
 GoTop.init($('body').eq(0), $('body,html'), 400);
@@ -107,5 +107,5 @@ function loadImg($ele) {
 
 function loadTab($ele) {
     $('.nav-list > li').removeClass('active');
-    $('.nav-list > li').eq($('section .container>h4').index($ele)).addClass('active');
+    $('.nav-list > li').eq($('section .container').index($ele)).addClass('active');
 }
