@@ -59,6 +59,10 @@ section {
 	position: fixed;
 }
 
+.half-trans {
+	background-color: rgba(0, 0, 0, 0);
+}
+
 .clearfix {
 	*zoom: 1;
 }
@@ -101,6 +105,7 @@ nav {
 	background-color: #222;
 	line-height: 20px;
 	z-index: 10;
+	transition: 0.5s background;
 }
 
 nav a.logo {

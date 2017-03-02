@@ -32,7 +32,21 @@ GoTop.init($('body').eq(0), $('body,html'), 400);
 $(".nav-list li").on('click', function (e) {
     $(".nav-list li").removeClass('active');
     $(this).addClass('active');
-})
+});
+
+//nav-bar background switch
+$(window).on('scroll', function () {
+    setNavBackground();
+});
+
+function setNavBackground () {
+    if( !$('nav.fixed').hasClass('half-trans') && $(window).scrollTop() < 650) {
+        $('nav.fixed').addClass('half-trans');
+    } else if ($('nav.fixed').hasClass('half-trans') && $(window).scrollTop() >= 650){
+        $('nav.fixed').removeClass('half-trans');
+        console.log(1);
+    }
+}
 
 // jsonpLoad callback function part
 function loadAndPlace(Data, $ct, $eleSelector) {
