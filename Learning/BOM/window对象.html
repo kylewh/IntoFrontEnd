@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+</head>
+
+<body>
+    <script>
+        //window上定义的对象和全局变量有区别
+        window.windowObject = {
+            'key': 'You got me!'
+        };
+        var globalVariable = 'You got me too!';
+        delete window.windowObject;
+        delete globalVariable;
+        console.log(window.windowObject); //undefined
+        console.log(globalVariable); //'You got me too!'; 
+        //也就是说window身上直接定义的变量才能delete掉而全局变量不可以。
+
+        //如果一个变量没有声明，访问它会报错，但是如果访问window.变量名只会返回undefined
+        console.log(window.unexisted); //undefined
+
+        //窗口大小
+        console.log(document.documentElement.clientHeight, document.documentElement.clientWidth);
+        console.log(document.documentElement.innerHeight, document.documentElement.innerWidth);
+
+        //间歇调用和超时调用
+        //setTimout: 第二个参数是执行代码前需要等待多少秒，再过多长时间把当前任务添加到队列中
+
+        //最好不要使用setInterval，最好用setTimout实现setInterval.
+        //我们利用闭包给它加上计时
+        function timer(limit) {
+            var counter = 0;
+            return function () {
+                var timeout = setTimeout(function () {
+                    if (counter >= limit - 1) {
+                        console.log('1000ms passed...');
+                        console.log('Time is up! Bye.');
+                        timeout = null;
+                        return;
+                    }
+                    counter++;
+                    console.log('1000ms passed...');
+                    setTimeout(arguments.callee, 1000);
+                }, 1000);
+            }
+        };
+        let fiveSecondTimer = timer(5);
+        fiveSecondTimer();
+
+        //Location对象 复制此代码到控制台打开任意搜索页面查看效果
+
+        var locationInfo = [
+            location.hash, //#号后跟零或者多个字符，如果不包含散列，则返回空字符
+            location.host, //返回服务器名称后端口号：如果有的话
+            location.hostname, //返回不带端口号的服务器名称
+            location.href, //返回当前加载页面的完整url, location.toString()返回的也是一样
+            location.toString(),
+            location.pathname, //返回url中的目录或者文件名
+            location.port, //返回url指定的端口号，如果没有端口号则返回空字符串
+            location.protocol, //协议 http or https
+            location.search // 返回查询字符串，以?开头
+        ];
+        console.log(locationInfo);
+
+
+        //我们经常需要处理查询字符串，以此获得参数信息，类似于表单的序列化
+        function getQueryStringArgs() {
+            var qs = location.search.length > 0 ? location.search.substr(1) : '',
+                argsObj = {},
+                items = qs.length ? qs.split('&') : [],
+                item = null,
+                name = null,
+                value = null,
+                i = 0,
+                len = items.length;
+            for (i = 0; i < len; i++) {
+                item = items[i].split('=');
+                name = encodeURIComponent(item[0]);
+                value = encodeURIComponent(item[1]);
+                if( name.length ) {
+                    argsObj[name] = value;
+                }
+            }
+            return argsObj;
+        }
+        //位置操作
+
+        //指定地址改变位置，生成一条历史记录
+        location.assign('http://www.baidu.com');
+        //等价于
+        locatiom.href = 'www.baidu.com';
+        //等价于
+        window.location = 'www.baidu.com';
+
+        //加入搜索参数
+        location.href = '?q=javascript';
+        //其余参数也可以这样修改，都会生成历史记录；
+
+        //如果不想在浏览里留下历史记录，那么我们可以使用 replace方法
+        location.replace('https://www.google.com'); 
+        //后退按钮将会禁用
+
+        location.load(); //不传递参数时让页面刷新，且页面会尽可能调用缓存
+        
+        //如果要强制刷新，我们可以传入true;
+        location.load(true);
+
+
+
+        //Naviagtor对象，浏览器识别
+
+        
+    </script>
+</body>
+
+</html>

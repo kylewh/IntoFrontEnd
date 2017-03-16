@@ -1,0 +1,244 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+</head>
+
+<body>
+    <script>
+        // //找出重复的
+        // function duplicates(arr) {
+        //     var newArr = [],
+        //         tempArr = arr.slice(0);
+        //     arr.forEach(function (ele, idx, array) {
+        //         var mark = 0;
+        //         while (tempArr.indexOf(ele) > -1) {
+        //             tempArr.splice(tempArr.indexOf(ele), 1);
+        //             mark++;
+        //         }
+        //         if (mark > 1) {
+        //             newArr.push(ele);
+        //         }
+        //     });
+        //     return newArr;
+        // }
+
+        // /*
+        // 实现一个打点计时器，要求
+        // 1、从 start 到 end（包含 start 和 end），每隔 100 毫秒 console.log 一个数字，每次数字增幅为 1
+        // 2、返回的对象中需要包含一个 cancel 方法，用于停止定时操作
+        // 3、第一个数需要立即输出
+        // */
+        // //version1
+        // function count(start, end) {
+        //     console.log(start);
+        //     start++;
+        //     var timer = null;
+        //     for (var i = start; i <= end; i++) {
+        //         (function (i, timer) {
+        //             timer = setTimeout(function () {
+        //                 console.log(i)
+        //             }, i * 100)
+        //         })(i, timer);
+        //     }
+        //     return {
+        //         cancel: function () {
+        //             clearTimeout(timer);
+        //         }
+        //     }
+        // }
+        // count(0, 9);
+
+        // //version2 
+        // function count(start, end) {
+        //     return {
+        //         start: start,
+        //         end: end,
+        //         timer: null,
+        //         counter: (function (timer) {
+        //             timer = setTimeout(function () {
+        //                 if (start > end) {
+        //                     return;
+        //                 }
+        //                 console.log(start++);
+        //                 timer = setTimeout(arguments.callee, 1000);
+        //             }, 100)
+        //         })(this.timer),
+        //         cancel: function () {
+        //             console.log(this.timer);
+        //             clearTimeout(this.timer);
+        //         }
+        //     }
+        // }
+
+        // var counter = count(0, 9);
+        // console.log(counter);
+
+
+        // /*
+        //  * 高票第一回答下需要考虑一个问题 new Number(120) 也是Number类型。
+        //  * 高程明确定义 Number类型下两种表示:
+        //  * var num = 120; or var num1 = new Number(120);
+        //  * 前者 typeof num === 'number', 后者 typeof num1 = 'object';
+        //  * 最精确的判断方法向来是 Object.prototype.toString.call(args) === '[object ' + type + ]';
+        //  * 这里type可取[ 'Array', 'Number', 'Object', 'String', 'Undefined', 'null' ]
+        //  * 结帖
+        //  */
+        // function fizzBuzz(num) {
+        //     if (num === undefined || Object.prototype.toString.call(num) !== '[object Number]') {
+        //         return false;
+        //     }
+        //     if (num % 3 === 0 && num % 5 === 0) {
+        //         return 'fizzbuzz';
+        //     } else if (num % 3 === 0) {
+        //         return 'fizz';
+        //     } else if (num % 5 === 0) {
+        //         return 'buzz';
+        //     }
+        //     return num;
+        // }
+        // var num = new Number(120);
+        // console.log(fizzBuzz(num), typeof num); // fizzBuzz, object
+        // //测试判例
+        // console.log([fizzBuzz(''), //false
+        //     fizzBuzz(), //false
+        //     fizzBuzz(0), //fizzBuzz
+        //     fizzBuzz(15), //fizzBuzz
+        //     fizzBuzz(9), //fizz
+        //     fizzBuzz(25), //buzz
+        //     fizzBuzz(29) //29
+        // ]);
+
+
+        function captureThreeNumbers(str) {
+            var arr = str.split(''),
+                len = arr.length,
+                count = 0,
+                temp = '';
+            for (var i = 0; i < len; i++) {
+                if (Math.abs(Number(arr[i]) - Number(arr[i + 1])) === 1) {
+                    count++;
+                    if (count <= 3) {
+                        if (i === len - 2 && count == 2) {
+                            temp += arr[i] + arr[i + 1];
+                            return temp;
+                        }
+                        temp += arr[i];
+                    } else {
+                        return temp;
+                    }
+                } else {
+                    temp = '';
+                    count = 0;
+                }
+            }
+            return false;
+        }
+
+        console.log(captureThreeNumbers('9876543')); //987
+        console.log(captureThreeNumbers('1211987')); //987
+        console.log(captureThreeNumbers('1223345')); //345
+        console.log(captureThreeNumbers('9122334')); //false
+        console.log(captureThreeNumbers('9132324')); //false
+
+
+        function add() {
+            // 第一次执行时，定义一个数组专门用来存储所有的参数
+            var _args = [].slice.call(arguments);
+
+            // 在内部声明一个函数，利用闭包的特性保存_args并收集所有的参数值
+            var adder = function () {
+
+
+                var _adder = function () {
+                    [].push.apply(_args, [].slice.call(arguments));
+                    return _adder;
+                };
+
+                // 利用隐式转换的特性，当最后执行时隐式转换，并计算最终的值返回
+                _adder.toString = function () {
+                    return _args.reduce(function (a, b) {
+                        return a + b;
+                    });
+                }
+
+                return _adder;
+            }
+            return adder.apply(null, _args);
+        }
+
+        // 输出结果，可自由组合的参数
+        console.log(add(1, 2, 3, 4, 5)); // 15
+        console.log(add(1, 2, 3, 4)(5)); // 15
+        console.log(add(1)(2)(3)(4)(5)(6)); //21
+        console.log(add(1));
+
+        function mul() {
+            var allArgs = [].slice.call(arguments);
+            var runner = function () {
+                var _argsCollector = function () {
+                    allArgs = [].concat.call(allArgs, [].slice.call(arguments));
+                    return _argsCollector; //隐式转化求值的关键
+                };
+                _argsCollector.valueOf = function () {
+                    return allArgs.reduce(function (a, b) {
+                        return a * b;
+                    }, 1)
+                };
+                return _argsCollector;
+            }
+            return runner.apply(null, allArgs);
+        }
+
+        console.log(mul(1));
+        console.log(mul(1)(2));
+        console.log(mul(1)(2)(3)(4));
+        console.log(mul(1, 2, 3, 4));
+        console.log(mul(1, 2, 3)(4));
+        console.log(mul(1)(2)(3, 4));
+
+
+        if (!Function.prototype.softBind) {
+            Function.prototype.softBind = function (obj) {
+                var fn = this; // 捕获所有 curried 参数 
+                var curried = [].slice.call(arguments, 1);
+                var bound = function () {
+                    return fn.apply((!this || this === (window || global)) ? obj : this, curried.concat.apply(
+                        curried, arguments));
+                };
+                bound.prototype = Object.create(fn.prototype);
+                return bound;
+            };
+        }
+
+        function foo() {
+            console.log("name: " + this.name);
+        }
+
+        var obj = {
+                name: "obj"
+            },
+
+            obj2 = {
+                name: "obj2"
+            },
+            obj3 = {
+                name: "obj3"
+            };
+
+        var fooOBJ = foo.softBind(obj);
+
+        fooOBJ(); // name: obj
+
+        obj2.foo = foo.softBind(obj);
+        obj2.foo(); // name: obj2 <---- 看！！！
+
+        fooOBJ.call(obj3); // name: obj3 <---- 看！
+
+        setTimeout(obj2.foo, 10); // name: obj <---- 应用了软绑定
+    </script>
+</body>
+
+</html>
