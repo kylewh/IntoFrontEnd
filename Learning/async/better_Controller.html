@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Better Controller</title>
+    <style>
+        html,
+        body {
+            font-family: 'Source Code Pro';
+            background: #212121;
+            line-height: 2.2;
+        }
+        
+        h1,
+        h4 {
+            font-family: Helvetica;
+            color: #9E9E9E;
+        }
+        
+        .requesting {
+            color: #FFB300;
+        }
+        
+        .ready {
+            color: #4caf50;
+        }
+        
+        .not-ready {
+            background: #FFEB3B;
+            color: #212121;
+        }
+        
+        .mes {
+            color: #03A9F4;
+        }
+        
+        .suc {
+            background: #8BC34A;
+            color: #FAFAFA;
+            font-size: 20px;
+        }
+    </style>
+</head>
+
+<body>
+    <h1>Using thunk</h1>
+    <h4>By using it we can actively hold the state of our asynchronous callback then enforce a series of orderded callback function call. Neat && Clear</h4>
+    <script>
+        //How we can control the calling order of ajax call?
+        /* Fake Ajax */
+        function fakeAjax(url, cb) {
+            var fakeResponse = {
+                'file1': 'file1 contents',
+                'file2': 'file2 contents',
+                'file3': 'file3 contents'
+            };
+            var randomDelay = Math.round(Math.random() * 2000) + 1000;
+            render('Requesting: ' + url + ', and this will take ' + randomDelay + 'ms', 'requesting');
+            setTimeout(function () {
+                cb(fakeResponse[url]);
+            }, randomDelay);
+        }
+
+        function render(text, className) {
+            document.body.innerHTML += '<p class="' + className + '">' + text + '</p>';
+        }
+
+        /*
+            Create a active thunk ( immediately call )
+            Using closure to maintain state
+            These is only two scenario here: 
+            1. fakeAjax call callBack first. ---- we store the data sent back and wait runing with it.
+            2. thunk call callBack first.    ---- we store the cb and wait ajax to call it.
+        */
+        function getFile(file) {
+            var text, fn;
+
+            fakeAjax(file, function __responseHandler__(responseMes) {
+                if (fn) fn(responseMes);
+                else text = responseMes;
+            });
+
+            return function __callBackHandler__(cb) {
+                if (text) cb(text);
+                else fn = cb;
+            }
+        }
+
+        var thunk1 = getFile('file1');
+        var thunk2 = getFile('file2');
+        var thunk3 = getFile('file3');
+
+        //What a powerful mechanism! Your code turn outs nice!
+        thunk1(function (responseOfFileOne) {
+            render('Output: ' + responseOfFileOne, 'mes');
+            thunk2(function (responseOfFileTwo) {
+                render('Output: ' + responseOfFileTwo, 'mes');
+                thunk3(function (responseOfFileThree) {
+                    render('Output: ' + responseOfFileThree, 'mes');
+                    render('Complete :)!!', 'suc');
+                });
+            });
+        });
+    </script>
+</body>
+
+</html>

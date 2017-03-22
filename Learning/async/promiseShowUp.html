@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Promise show up</title>
+    <link href="https://fonts.googleapis.com/css?family=Roboto:300,500,700|Ruda:500,700,900|Lato:300|" rel="stylesheet">
+    <style>
+        html,
+        body {
+            font-family: 'Lato', sans-serif;
+            line-height: 2.2;
+            font-weight: 300;
+            background: #fbfbfb;
+        }
+        
+        h1,
+        h4 {
+            font-family: 'Ruda', sans-serif;
+            color: #455a64;
+            font-weight: 500;
+        }
+        
+        .requesting {
+            color: #009688;
+        }
+        
+        .ready {
+            color: #4caf50;
+        }
+        
+        .not-ready {
+            background: #FFEB3B;
+            color: #212121;
+        }
+        
+        .mes {
+            color: #03A9F4;
+        }
+        
+        .suc {
+            background: #8BC34A;
+            color: #FAFAFA;
+            font-size: 20px;
+        }
+    </style>
+</head>
+
+<body>
+    <h1>Promise a brighter future</h1>
+    <h4>Chaining your call like a data flow.</h4>
+    <script>
+        //How we can control the calling order of ajax call?
+        /* Fake Ajax */
+        function fakeAjax(url, cb) {
+            var fake_responses = {
+                "file1": "The first text",
+                "file2": "The middle text",
+                "file3": "The last text"
+            };
+            var randomDelay = Math.round(Math.random() * 2000) + 1000;
+            render('Requesting: ' + url + ', and this will take ' + randomDelay + 'ms', 'requesting');
+            render("Requesting: " + url, 'requesting');
+
+            setTimeout(function () {
+                cb(fake_responses[url]);
+            }, randomDelay);
+        }
+
+        function render(text, className) {
+            document.body.innerHTML += '<p class="' + className + '">' + text + '</p>';
+        }
+
+        /*
+            Create a active thunk ( immediately call )
+            Using closure to maintain state
+            These is only two scenario here: 
+            1. fakeAjax call callBack first. ---- we store the data sent back and wait runing with it.
+            2. thunk call callBack first.    ---- we store the cb and wait ajax to call it.
+        */
+        function getFile(file) {
+            // what do we do here?
+            return new Promise(function (resolve, reject) {
+                fakeAjax(file, function (response) {
+                    resolve(response);
+                });
+            });
+        }
+
+
+        // Version 1
+        // getFile('file1')
+        //     .then(function (response1) {
+        //         render(response1, 'mes');
+        //         return getFile('file2');
+        //     })
+        //     .then(function (response2) {
+        //         render(response2, 'mes');
+        //         return getFile('file3');
+        //     })
+        //     .then(function (response3) {
+        //         render(response3, 'mes');
+        //         render("Complete! :)", 'suc');
+        //     });
+
+        // Version 2
+        // Function should possibily do one thing at one time.
+        // getFile('file1')
+        //     .then(function (response1) {
+        //         render(response1, 'mes')
+        //     })
+        //     .then(function () {
+        //         return getFile('file2');
+        //     })
+        //     .then(function (response2) {
+        //         render(response2, 'mes');
+        //     })
+        //     .then(function () {
+        //         return getFile('file3');
+        //     })
+        //     .then(function (response3) {
+        //         render(response3, 'mes');
+        //     })
+        //     .then(function () {
+        //         render("Complete!", 'suc');
+        //     })
+
+        // Version 3
+        // More abstract & flexible style
+        ['file1','file2','file3']
+        .map(getFile)
+
+        .reduce(function(chain, filePromise){
+            return chain.then(function(){
+                return filePromise;
+            }).then(function(res){
+                render(res, 'mes');
+            })
+        },Promise.resolve())
+        .then(function(){
+            render('Complete! :)', 'suc');
+        });
+
+
+        // // Version 4
+        // Promise.all(['file1', 'file2', 'file3'].map(getFile)).then(function (reps) {
+        //     reps.forEach(function (msg) {
+        //         render(msg, 'mes');
+        //     })
+        // }).then(function () {
+        //     render('Complete! :)', 'suc');
+        // });
+
+
+    </script>
+</body>
+
+</html>

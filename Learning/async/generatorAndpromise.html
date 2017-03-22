@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Generator and promise</title>
+    <link href="https://fonts.googleapis.com/css?family=Roboto:300,500,700|Ruda:500,700,900|Lato:300|" rel="stylesheet">
+    <style>
+        html,
+        body {
+            font-family: 'Lato', sans-serif;
+            line-height: 2.2;
+            font-weight: 300;
+            background: #fbfbfb;
+        }
+        
+        h1,
+        h4 {
+            font-family: 'Ruda', sans-serif;
+            color: #455a64;
+            font-weight: 500;
+        }
+        
+        .requesting {
+            color: #009688;
+        }
+        
+        .ready {
+            color: #4caf50;
+        }
+        
+        .not-ready {
+            background: #FFEB3B;
+            color: #212121;
+        }
+        
+        .mes {
+            color: #03A9F4;
+        }
+        
+        .suc {
+            background: #8BC34A;
+            color: #FAFAFA;
+            font-size: 20px;
+        }
+    </style>
+</head>
+
+<body>
+    <h1>New Life Generator</h1>
+    <h4>Without put your 'then' everywhere.</h4>
+    <script>
+        //How we can control the calling order of ajax call?
+        /* Fake Ajax */
+        function fakeAjax(url, cb) {
+            var fake_responses = {
+                "file1": "The first text",
+                "file2": "The middle text",
+                "file3": "The last text"
+            };
+            var randomDelay = Math.round(Math.random() * 2000) + 1000;
+            render('Requesting: ' + url + ', and this will take ' + randomDelay + 'ms', 'requesting');
+            render("Requesting: " + url, 'requesting');
+
+            setTimeout(function () {
+                cb(fake_responses[url]);
+            }, randomDelay);
+        }
+
+        function render(text, className) {
+            document.body.innerHTML += '<p class="' + className + '">' + text + '</p>';
+        }
+
+        function getFile(file) {
+            // what do we do here?
+            return new Promise(function (resolve, reject) {
+                fakeAjax(file, function (response) {
+                    resolve(response);
+                });
+            });
+        }
+
+        // Version 5
+        var gen = function* () {
+            var f1 = yield getFile('file1');
+            render(f1, 'mes');
+            var f2 = yield getFile('file2');
+            render(f2, 'mes');
+            var f3 = yield getFile('file3');
+            render(f3, 'mes');
+        }
+        var g = gen();
+
+        // Manual chaining
+        // g.next().value.then(function(data){
+        //     g.next(data).value.then(function(data){
+        //         g.next(data).value.then(function(data){
+        //             g.next(data);
+        //             render('Complete! :)', 'suc')
+        //         })
+        //     })
+        // });
+
+        function run(gen) {
+            var g = gen;
+            function next(data) {
+                //result is a promise, in generator, the first next() will ignore the parameter passed in.
+                var result = g.next(data); 
+                if (result.done) return result.value; //udefined
+                result.value.then(function (data) {
+                    next(data);
+                });
+            }
+            next();
+        }
+        run(g);
+
+    </script>
+</body>
+
+</html>

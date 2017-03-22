@@ -7,8 +7,6 @@ function carousel($carousel) {
 
     let size = $carousel.children().length,
         $imgList = $carousel.children(),
-        $firstImg = $carousel.children().first(),
-        $lastImg = $carousel.children().last(),
         $imgWidth = $lastImg.width(),
         $thumbnail = $('.thumbnail');
 

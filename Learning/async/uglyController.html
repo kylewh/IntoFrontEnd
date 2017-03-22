@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Ugly controller</title>
+    <style>
+        html,
+        body {
+            font-family: 'Source Code Pro';
+            background: #212121;
+            line-height: 2.2;
+        }
+        
+        h1,
+        h4 {
+            font-family: Helvetica;
+            color: #9E9E9E;
+        }
+        
+        .requesting {
+            color: #FFB300;
+        }
+        
+        .ready {
+            color: #4caf50;
+        }
+        
+        .not-ready {
+            background: #FFEB3B;
+            color: #212121;
+        }
+        
+        .mes {
+            color: #03A9F4;
+        }
+        
+        .suc {
+            background: #8BC34A;
+            color: #FAFAFA;
+            font-size: 20px;
+        }
+    </style>
+</head>
+
+<body>
+    <h1>Using order-check mechanism</h1>
+    <h4>By traversing the array of ordered event. Crappy & Tedious</h4>
+    <script>
+        //How we can control the calling order of ajax call?
+
+        /* Fake Ajax */
+        function fakeAjax(url, cb) {
+            var fakeResponse = {
+                'file1': 'file1 contents',
+                'file2': 'file2 contents',
+                'file3': 'file3 contents'
+            };
+            var randomDelay = Math.round(Math.random() * 2000) + 1000;
+            render('Requesting: ' + url + ', and this will take ' + randomDelay + 'ms', 'requesting');
+            setTimeout(function () {
+                cb(fakeResponse[url]);
+            }, randomDelay);
+        }
+
+        function render(text, className) {
+            document.body.innerHTML += '<p class="' + className + '">' + text + '</p>';
+        }
+
+        function requestFile(fileURL) {
+            fakeAjax(fileURL, function (text) {
+                handleResponse(fileURL, text);
+            });
+        }
+
+        /*
+            core watcher:
+            1. once receive message, push into a message pool: key-fileName, value-contents
+            2. traverse a fileName list in order, if a fileName is not in the message pool, then break the loop,
+               if is not, render the message.
+        */
+        function watchAndHandle(fileList) {
+            var oResPool = {};
+            var aFileNames = fileList;
+
+            return function (filename, contents) {
+                if (!(oResPool[filename] in oResPool)) {
+                    render('Finish: ' + filename + ' is ready!', 'ready');
+                    oResPool[filename] = contents;
+                }
+                for (var i = 0; i < aFileNames.length; i++) {
+                    if (aFileNames[i] in oResPool) {
+                        if (typeof oResPool[aFileNames[i]] === 'string') {
+                            render('Output: ' + oResPool[aFileNames[i]], 'mes');
+                            oResPool[aFileNames[i]] = false;
+                        }
+                    } else {
+                        render('Block: But ' + aFileNames[i] + ' is not ready yet.. continue waiting...',
+                            'not-ready')
+                        return;
+                    }
+                }
+                render('Complete :)!!', 'suc');
+            }
+        }
+        var handleResponse = watchAndHandle(["file1", "file2", "file3"]);
+        requestFile('file1');
+        requestFile('file2');
+        requestFile('file3');
+    </script>
+</body>
+
+</html>
