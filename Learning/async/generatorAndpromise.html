@@ -8,6 +8,7 @@
     <style>
         html,
         body {
+            text-align: center;
             font-family: 'Lato', sans-serif;
             line-height: 2.2;
             font-weight: 300;
@@ -94,9 +95,18 @@
         // Maybe Loop? 
         let gen = function* () {
             for (let i = 0, task; task = ['file1', 'file2', 'file3'][i++];) {
-                let temp = yield getFile(task)
-                render(temp, 'mes');
+                try {
+                    let temp = yield getFile(task)
+                    render(temp, 'mes');
+                } catch (err) {
+                    console.error(err);
+                }
             }
+            // dosen't work
+            // ['file1', 'file2', 'file3'].forEach(function (task, idx) {
+            //     let temp = yield getFile(task);
+            //     render(temp, 'mes');
+            // });
         };
 
 

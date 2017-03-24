@@ -8,6 +8,7 @@
     <style>
         html,
         body {
+            text-align: center;
             font-family: 'Lato', sans-serif;
             line-height: 2.2;
             font-weight: 300;
@@ -87,7 +88,6 @@
             });
         }
 
-
         // Version 1
         // getFile('file1')
         //     .then(function (response1) {
@@ -103,8 +103,8 @@
         //         render("Complete! :)", 'suc');
         //     });
 
-        // Version 2
-        // Function should possibily do one thing at one time.
+        // // Version 2
+        // // Function should possibily do one thing at one time.
         // getFile('file1')
         //     .then(function (response1) {
         //         render(response1, 'mes')
@@ -126,20 +126,19 @@
         //     })
 
         // Version 3
-        // More abstract & flexible style
-        ['file1','file2','file3']
-        .map(getFile)
-
-        .reduce(function(chain, filePromise){
-            return chain.then(function(){
-                return filePromise;
-            }).then(function(res){
-                render(res, 'mes');
-            })
-        },Promise.resolve())
-        .then(function(){
-            render('Complete! :)', 'suc');
-        });
+        // // More abstract & flexible style
+        // ['file1', 'file2', 'file3']
+        // .map(getFile)
+        //     .reduce(function (chain, filePromise) {
+        //         return chain.then(function () {
+        //             return filePromise;
+        //         }).then(function (res) {
+        //             render(res, 'mes');
+        //         })
+        //     }, Promise.resolve())
+        //     .then(function () {
+        //         render('Complete! :)', 'suc');
+        //     });
 
 
         // // Version 4

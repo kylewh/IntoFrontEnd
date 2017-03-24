@@ -39,20 +39,22 @@ class Animator {
                 //timestamp is the parameter that requestAnimationFrame will passed in.
                 //It's actually a DOMHighResTimeStamp: The unit is milliseconds and should be accurate to 5 µs (microseconds).
                 startTime = startTime || timestamp;
-                var p = Math.min(1.0, (timestamp - startTime) / duration);
-                update.call(self, easing ? easing(p) : p, p);
+                self.p = Math.min(1.0, (timestamp - startTime) / duration);
+                update.call(self, easing ? easing(self.p) : self.p, self.p);
 
-                if (p < 1.0) {
+                if (self.p < 1.0) {
                     id = requestAnimationFrame(step);
                 } else {
+                    //reject('canceled')
                     resolve(self);
                 }
             }
 
             self.cancel = () => {
                 cancelAnimationFrame(id);
-                update.call(self, 0, 0); //reset;
-                reject('Cancled');
+                update.call(self, easing ? easing(self.p) : self.p);
+                // update.call(self, 0, 0); //reset;
+                resolve(self);
             };
 
             id = requestAnimationFrame(step);
@@ -96,21 +98,21 @@ let a3 = new Animator(2000, function (easedp) {
 
 view.forEach(function (ele, idx) {
     ele.addEventListener('click', function () {
+        console.log(idx);
         [a1, a2, a3][idx].cancel();
     });
 });
 
 
 
-function* go() {
-    var task1 = yield a1.animate();
-    var task2 = yield a2.animate();
-    var task3 = yield a3.animate();
-}
+let go = function* () {
+    for (let i = 0, task; task = [a1, a2, a3][i++];) {
+        let temp = yield task.animate();
+    }
+};
 
 function run(gen) {
     var g = gen();
-
     function next(res) {
         var result = g.next(res);
         if (result.done) return result.value;
