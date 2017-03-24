@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+    <style>
+        html,
+        body {
+            background: #37474f;
+        }
+        
+        .box {
+            position: absolute;
+            left: 200px;
+            line-height: 100px;
+            height: 100px;
+            width: 100px;
+            background-color: aquamarine;
+            font-size: 12px;
+            cursor: pointer;
+            text-align: center;
+        }
+        
+        #block1 {
+            top: 100px;
+        }
+        
+        #block2 {
+            top: 300px;
+        }
+        
+        #block3 {
+            top: 500px;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="box" id="block1">匀速</div>
+    <div class="box" id="block2">匀加速</div>
+    <div class="box" id="block3">匀减速</div>
+    <script>
+        ;
+        (function () {
+            var block1 = document.getElementById('block1');
+            var block2 = document.getElementById('block2');
+            var block3 = document.getElementById('block3');
+            block1.addEventListener('click', function () {
+                motion(block1, 2000, 600, 'linear');
+            });
+            block2.addEventListener('click', function () {
+                motion(block2, 2000, 600, 'ease-in');
+            });
+            block3.addEventListener('click', function () {
+                motion(block3, 2000, 600, 'ease-out');
+            });
+
+            function motion(target, duration, distance, type) {
+                let startTime = Date.now();
+
+                requestAnimationFrame(function __update__() {
+                    let p = Math.min(1.0, (Date.now() - startTime) / duration),
+                        calculatedPos;
+                    switch (type) {
+                        case 'linear':
+                            calculatedPos = p * distance;
+                            break;
+                        case 'ease-in':
+                            /*
+                            p = t / T;
+                            S = 1/2 * a * T^2;
+                            a = 2S / T^2;
+                            S(t) = 1/2 * a * t^2;
+                                = 1/2 * 2S / T^2 & t^2;
+                                = S * p^2;
+                            */
+                            calculatedPos = p * p * distance;
+                            break;
+                        case 'ease-out':
+                            /*
+                            p = t / T;
+                            V(end) = V(start) - a*T;
+                            V(start) = a * T;
+                            a = -2S / T;
+                            V(t) = V(start)*t + 1/2 * a * t^2;
+                                = 2S/T * t + 1/2 * 2S/T * t^2;
+                                = 2S * p - S * p^2;
+                                = S * p * (2 - p)
+                            */
+                            calculatedPos = distance * p * (2 - p);
+                            break;
+                        default:
+                            break;
+                    }
+                    target.style.transform = `translateX(${calculatedPos}px)`;
+                    if (p < 1.0) requestAnimationFrame(arguments.callee);
+                })
+            }
+        })();
+    </script>
+</body>
+
+</html>

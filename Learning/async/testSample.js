@@ -16,14 +16,26 @@ function fakeIterator(array) {
 
 var it = fakeIterator([1, 2, 3, 4, 5, 6]);
 
-console.log( it.next() );
-console.log( it.next() );
-console.log( it.next() );
-console.log( it.next() );
-console.log( it.next() );
-console.log( it.next() );
-console.log( it.next() );
+console.log(it.next());
+console.log(it.next());
+console.log(it.next());
+console.log(it.next());
+console.log(it.next());
+console.log(it.next());
+console.log(it.next());
 
 // for ( var key of it) {
 //     console.log(key);
 // }
+
+function* co() {
+    yield 1;
+    yield 2;
+}
+
+for (let key of co()) {
+    console.log(key);
+}
+
+
+console.log(co.constructor.prototype)

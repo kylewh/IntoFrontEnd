@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+    <style>
+        html,
+        body {
+            background: #37474f;
+        }
+        
+        .box {
+            position: absolute;
+            left: 200px;
+            line-height: 40px;
+            height: 40px;
+            width: 40px;
+            background-color: aquamarine;
+            font-size: 12px;
+            cursor: pointer;
+            text-align: center;
+        }
+        
+        #block1 {
+            top: 100px;
+            border-radius: 50%;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="box" id="block1">抛物线</div>
+
+    <script>
+        ;
+        (function () {
+            var block1 = document.getElementById('block1');
+            block1.addEventListener('click', function () {
+                paraCurve(block1, 300, 500);
+            });
+
+            function paraCurve(target, disX, disY) {
+                let startTime = Date.now(),
+                    duration = 500 * Math.sqrt( 2 * disY / 98);
+                    console.log(duration);
+                    // 9.8 => 98, 10px是1米
+                requestAnimationFrame(function __update__() {
+                    console.log(1);
+                    let p = Math.min(1.0, (Date.now() - startTime) / duration),
+                        [x,y] = [disX * p, disY * p * p];
+                    target.style.transform = `translate(${x}px, ${y}px)`;
+                    if (p < 1.0) requestAnimationFrame(arguments.callee);
+                })
+            }
+        })();
+    </script>
+</body>
+
+</html>

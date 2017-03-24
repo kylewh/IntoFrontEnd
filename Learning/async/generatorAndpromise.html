@@ -50,7 +50,7 @@
     <h1>New Life Generator</h1>
     <h4>Without put your 'then' everywhere.</h4>
     <script>
-        //How we can control the calling order of ajax call?
+        //How we can control the order of ajax call?
         /* Fake Ajax */
         function fakeAjax(url, cb) {
             var fake_responses = {
@@ -81,15 +81,27 @@
         }
 
         // Version 5
-        var gen = function* () {
-            var f1 = yield getFile('file1');
-            render(f1, 'mes');
-            var f2 = yield getFile('file2');
-            render(f2, 'mes');
-            var f3 = yield getFile('file3');
-            render(f3, 'mes');
-        }
+        // var gen = function* () {
+        //     var f1 = yield getFile('file1');
+        //     render(f1, 'mes');
+        //     var f2 = yield getFile('file2');
+        //     render(f2, 'mes');
+        //     var f3 = yield getFile('file3');
+        //     render(f3, 'mes');
+        // }
+
+
+        // Maybe Loop? 
+        let gen = function* () {
+            for (let i = 0, task; task = ['file1', 'file2', 'file3'][i++];) {
+                let temp = yield getFile(task)
+                render(temp, 'mes');
+            }
+        };
+
+
         var g = gen();
+
 
         // Manual chaining
         // g.next().value.then(function(data){
@@ -103,9 +115,10 @@
 
         function run(gen) {
             var g = gen;
+
             function next(data) {
                 //result is a promise, in generator, the first next() will ignore the parameter passed in.
-                var result = g.next(data); 
+                var result = g.next(data);
                 if (result.done) return result.value; //udefined
                 result.value.then(function (data) {
                     next(data);
@@ -114,7 +127,6 @@
             next();
         }
         run(g);
-
     </script>
 </body>
 
