@@ -18,7 +18,8 @@
         console.log(window.windowObject); //undefined
         console.log(globalVariable); //'You got me too!'; 
         //也就是说window身上直接定义的变量才能delete掉而全局变量不可以。
-
+        //var 语句添加的window属性的configurable被设置为了false
+        
         //如果一个变量没有声明，访问它会报错，但是如果访问window.变量名只会返回undefined
         console.log(window.unexisted); //undefined
 

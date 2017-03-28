@@ -42,3 +42,4 @@ for (let key of co()) {
 
 
 console.log(co.constructor.prototype)
+
