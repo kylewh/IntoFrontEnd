@@ -9,13 +9,15 @@
     "test": "NODE_ENV=test jest",
     "update-test": "npm run test -- -u",
     "build": "webpack",
-    "dev": "webpack-dev-server --inline",
-    "lint": "eslint js/**/*.js server.js",
-    "watch": "webpack --watch"
+    "dev": "webpack-dev-server",
+    "lint": "eslint js/**/*.js webpack.config.js",
+    "watch": "webpack --watch",
+    "cover": "npm run test -- --coverage"
   },
   "dependencies": {
     "axios": "0.15.2",
     "express": "4.14.0",
+    "fetch": "^1.1.0",
     "history": "^4.4.0",
     "lodash": "4.16.2",
     "preact": "^6.4.0",
@@ -31,7 +33,7 @@
   "devDependencies": {
     "babel-core": "6.16.0",
     "babel-jest": "16.0.0",
-    "babel-loader": "6.2.7",
+    "babel-loader": "^6.4.1",
     "babel-plugin-transform-es2015-modules-commonjs": "^6.18.0",
     "babel-polyfill": "^6.16.0",
     "babel-preset-es2015": "6.18.0",

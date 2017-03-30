@@ -1,11 +1,41 @@
 import React from 'react'
+import { connect } from 'react-redux'
+import ShowCard from './ShowCard'
+import Header from './Header'
+const { arrayOf, shape, string } = React.PropTypes
 
 const Search = React.createClass({
+  propTypes: {
+    shows: arrayOf(shape({
+      title: string,
+      description: string
+    })),
+    searchTerm: string
+  },
   render () {
     return (
-      <h1>Search page!</h1>
+      <div className='search'>
+        <Header
+          showSearch//  ={true}
+        />
+        <div>
+          {this.props.shows
+            .filter((show) => `${show.title} ${show.description}`.toUpperCase().indexOf(this.props.searchTerm.toUpperCase()) >= 0)
+            .map((show) => {
+              return (
+                <ShowCard key={show.imdbID} {...show} />
+              )
+            })}
+        </div>
+      </div>
     )
   }
 })
 
-export default Search
+const mapStatetoProps = (state) => {
+  return {
+    searchTerm: state.searchTerm
+  }
+}
+
+export default connect(mapStatetoProps)(Search)
