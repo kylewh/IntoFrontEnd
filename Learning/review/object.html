@@ -1,0 +1,10 @@
+<script>
+var testObj = {}
+Object.defineProperty(testObj, 'notWriteable', {
+  writable: false,
+  value: 99
+})
+
+var giveMeOneHundred = testObj.notWritebale++
+console.log(giveMeOneHundred = testObj.notWritebale++)
+</script>

@@ -1,0 +1,15 @@
+{
+  "name": "webpackTest",
+  "version": "1.0.0",
+  "main": "index.js",
+  "author": "kylewh",
+  "license": "MIT",
+  "devDependencies": {
+    "css-loader": "^0.28.0",
+    "image-loader": "^0.0.1",
+    "image-webpack-loader": "^3.3.0",
+    "style-loader": "^0.16.1",
+    "url-loader": "^0.5.8",
+    "webpack": "^2.3.3"
+  }
+}
