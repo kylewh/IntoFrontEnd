@@ -6,18 +6,15 @@ function ajax(opts) {
         dataType: 'json',
         succ: function () {},
         erro: function () {}
-    };
+    }
 
     //覆盖默认设置
-    for (let attr in opts) {
-        settings[attr] = opts[attr];
-    }
+    Object.assign(settings, opts)
 
     //拼接参数
     let arr = [];
     for (let attr in settings.data) {
-        arr.push(encodeURIComponent(attr) + '=' + encodeURIComponent(settings.data[attr]));
-        console.log(encodeURIComponent(attr));
+        arr.push(encodeURIComponent(attr) + '=' + encodeURIComponent(settings.data[attr]))
     }
 
     //arr.join("&") 就是dataString

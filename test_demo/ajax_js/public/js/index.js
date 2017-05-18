@@ -18,12 +18,14 @@ btn.addEventListener('click', function (e) {
         data: {},
         dataType: 'json',
         succ: function (json) {
-
+            let fragment = document.createDocumentFragment()
             for (let i = 0; i < 6; i++) {
                 let newContent = document.createElement('li');
                 newContent.innerText = 'mockData ' + (++curIndex);
-                content.appendChild(newContent);
+                fragment.appendChild(newContent);
             }
+            content.appendChild(fragment)
+
             //解锁
             btn.setAttribute('isLoading', false);
             btn.className = " ";

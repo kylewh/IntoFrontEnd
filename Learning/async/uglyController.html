@@ -67,18 +67,13 @@
             document.body.innerHTML += '<p class="' + className + '">' + text + '</p>';
         }
 
-        function requestFile(fileURL) {
-            fakeAjax(fileURL, function (text) {
-                handleResponse(fileURL, text);
-            });
-        }
-
         /*
             core watcher:
             1. once receive message, push into a message pool: key-fileName, value-contents
             2. traverse a fileName list in order, if a fileName is not in the message pool, then break the loop,
                if is not, render the message.
         */
+    
         function watchAndHandle(fileList) {
             var oResPool = {};
             var aFileNames = fileList;
@@ -88,6 +83,7 @@
                     render('Finish: ' + filename + ' is ready!', 'ready');
                     oResPool[filename] = contents;
                 }
+                // Order Check
                 for (var i = 0; i < aFileNames.length; i++) {
                     if (aFileNames[i] in oResPool) {
                         if (typeof oResPool[aFileNames[i]] === 'string') {
@@ -103,7 +99,15 @@
                 render('Complete :)!!', 'suc');
             }
         }
+
         var handleResponse = watchAndHandle(["file1", "file2", "file3"]);
+
+        function requestFile(fileURL) {
+            fakeAjax(fileURL, function (text) {
+                handleResponse(fileURL, text);
+            });
+        }
+
         requestFile('file1');
         requestFile('file2');
         requestFile('file3');
