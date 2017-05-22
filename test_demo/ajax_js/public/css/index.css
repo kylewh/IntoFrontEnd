@@ -1,6 +1,45 @@
+* {
+    box-sizing: border-box;
+}
+
+html {
+    font-size: 62.5%;
+    font-family: "Hiragino Sans GB", "Microsoft YaHei", "Microsoft JhengHei", "Source Han Sans SC", "Noto Sans CJK SC", "Source Han Sans CN", "Noto Sans SC", "Source Han Sans TC", "Noto Sans CJK TC", "WenQuanYi Micro Hei", SimSun, sans-serif;
+}
+
+ul, li {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+}
+
+.flex {
+    display: flex;
+}
+
+.column {
+    flex-direction: column;
+}
+
+.hidden {
+    display: none;
+}
+
+.btn {
+    display: block;
+    border: 1px solid;
+    text-decoration: none;
+    text-align: center;
+    border-radius: 2px;
+}
+
 .container {
-    width: 1200px;
+    min-width: 600px;
     margin: 0 auto;
+}
+
+.container .control {
+    align-self: center;
 }
 
 .content {
@@ -18,28 +57,92 @@
     border-radius: 4px;
     font-family: helvetica;
     font-size: 20px;
-    background-color: rgb(205, 220, 57);;
+    background-color: rgb(205, 220, 57);
 }
 
 .content>li:hover {
     color: #607d8b;
-    box-shadow: 1px 0px 8px 1px #03a9f4;;
+    box-shadow: 1px 0px 8px 1px #03a9f4;
 }
 
-#btn {
-    display: block;
-    font-family: helvetica;
-    width: 150px;
-    margin: 0 auto;
+.control .btn {
+    margin: 0 1rem;
+}
+
+#requset {
     border: 1px solid #2196f3;
-    text-decoration: none;
     color: #2196f3;
-    text-align: center;
+    width: 150px;
     line-height: 50px;
-    border-radius: 4px;
+    font-size: 1.6rem;
+}
+
+#setting {
+    border: 1px solid #2196f3;
+    color: #2196f3;
+    width: 150px;
+    line-height: 50px;
+    font-size: 1.6rem;
 }
 
 .loading {
     color: #ccc !important;
     border: 1px solid #ccc !important;
+}
+
+.modal {
+    position: fixed;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    border: 1px solid #eef;
+    padding: 1rem 2rem;
+    border-radius: 5px;
+    background: #fff;
+}
+
+.dashboard {
+    min-width: 300px;
+    justify-content: space-around;
+}
+
+.dashboard #close {
+    align-self: flex-end;
+    cursor: pointer;
+}
+
+.dashboard .fieldset {
+    padding: 1.5rem 0;
+}
+
+.dashboard .fieldset:hover label {
+    color: #2196f3;
+}
+
+.dashboard label {
+    line-height: 1.7;
+    color: #424242;
+    font-size: 1.5rem;
+}
+
+.dashboard input {
+    border: 1px solid #ccc;
+    border-radius: 2px;
+    outline: none;
+    text-align: center;
+}
+
+.dashboard #submit {
+    border-color: #2196f3;
+    color: #2196f3;
+    padding: 0.2rem 1rem;
+    align-self: center;
+    cursor: pointer;
+    margin: 0.5rem 0;
+    transition: all 0.2s;
+}
+
+.dashboard #submit:hover {
+    background: #2196f3;
+    color: white;
 }

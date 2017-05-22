@@ -9,12 +9,26 @@
 </head>
 
 <body>
-    <div class="container">
+    <div class="container flex column">
         <ul class="content">
-            <li>mockData 1</li>
-            <li>mockData 2</li>
         </ul>
-        <a id="btn" href="#">Load More</a>
+        <div class="control flex">
+            <a id="requset" class="btn" href="#">Load More</a>
+            <a id="setting" class="btn" href="#">setting</a>
+        </div>
+
+    </div>
+    <div class='modal'>
+        <form class="dashboard flex column">
+            <a id="close">X</a>
+            <ul>
+                <li class="fieldset">
+                    <label for="requestCount">请选择要请求多少条数据？</label>
+                    <input id="requestCount" type="number" name="requestCount" value="1">
+                </li>
+            </ul>
+            <a class='btn' id="submit">Done</a>
+        </form>
     </div>
     <script src="./js/ajax.js"></script>
     <script src="./js/index.js"></script>
