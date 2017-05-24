@@ -9,14 +9,15 @@ const cookieHandler = {
       secure: ""
     }
   ) => {
-    let ret = [], str;
+    let ret = [],
+      str;
     if (opt.key || opt.value) {
       ret.push(
         `${encodeURIComponent(opt.key)}=${encodeURIComponent(opt.value)}`
       );
-      opt.maxAge
-        ? ret.push(`max-age=${new Date(opt.maxAge).toUTCString()}`)
-        : "";
+      opt.maxAge ?
+        ret.push(`max-age=${new Date(opt.maxAge).toUTCString()}`) :
+        "";
       opt.domain ? ret.push(`path=${opt.path}`) : "";
       opt.secure ? ret.push("secure") : "";
       str = ret.join("; ");
@@ -25,7 +26,8 @@ const cookieHandler = {
     return str;
   },
   getItem: key => {
-    let cookies = document.cookie.split("; "), ret = [];
+    let cookies = document.cookie.split("; "),
+      ret = [];
     cookies.forEach((val, idx) => {
       if (val.indexOf(key + "=") === 0) {
         let value = decodeURIComponent(val.slice(val.indexOf("=") + 1));
@@ -35,7 +37,8 @@ const cookieHandler = {
     });
   },
   getAll: () => {
-    let cookies = document.cookie.split("; "), ret = {};
+    let cookies = document.cookie.split("; "),
+      ret = {};
     cookies.forEach(val => {
       let pair = val.split("=");
       ret[decodeURIComponent(pair[0])] = decodeURIComponent(pair[1]);
@@ -44,9 +47,9 @@ const cookieHandler = {
   },
   clear: () => {
     let cookies = document.cookie.split("; ");
-    cookies.forEach((val, idx) => {
+    cookies.forEach(val => {
       document.cookie =
-        cookies[idx].slice(0, cookies[idx].indexOf("=")) +
+        val.slice(0, val.indexOf("=")) +
         ";expires = " +
         new Date(0);
     });
