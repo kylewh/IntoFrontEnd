@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Async in animation</title>
+    <style>
+        html,
+        body {
+            background: #fafafa;
+        }
+        
+        .box {
+            position: absolute;
+            left: 200px;
+            line-height: 100px;
+            height: 100px;
+            width: 100px;
+            color: #fff;
+            font-size: 12px;
+            cursor: pointer;
+            text-align: center;
+            border-radius: 50%;
+        }
+        
+        #block1 {
+            top: 100px;
+            background: #03a9f4;
+        }
+        
+        #block2 {
+            top: 300px;
+            background: #cddc39;
+        }
+        
+        #block3 {
+            top: 500px;
+            background: #e57373;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="box" id="block1">匀速</div>
+    <div class="box" id="block2">匀加速</div>
+    <div class="box" id="block3">匀减速</div>
+    <script src="./linearAsync.js"></script>
+</body>
+
+</html>
