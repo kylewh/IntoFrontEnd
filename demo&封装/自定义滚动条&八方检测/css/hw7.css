@@ -1,0 +1,145 @@
+html {
+	font-size: 62.5%;
+	/* 默认1rem = 16px; 10/16 = 62.5%; */
+}
+
+html,
+body {
+	margin: 0;
+	bottom: 0;
+	height: 100%;
+	background-image: url(../img/photo-1479150928156-423a69d91fe0.jpeg);
+	background-position: center;
+	background-size: cover;
+}
+
+body {
+	font-family: georgia;
+	font-size: 2rem;
+}
+header{
+	height: 60px;
+	background: #383838;
+} 
+
+li{
+	font-size: 1.9rem;
+	line-height: 60px;
+	float: left;
+	margin-right:40px;
+	color: ghostwhite;
+}
+li:nth-child(1){
+	margin-left: 6%;
+}
+li a:hover{
+	color: #E6D3A7;
+	cursor: pointer;
+}
+.wrapper {
+	width: 90%;
+	height: calc( 100% - 60px);
+	margin: 0 auto;
+	position: relative;
+	border-radius: 5px;
+	background-image: url(../img/blured2.jpg);
+	background-size: cover;
+	background-repeat: no-repeat;
+	background-position: center;
+	display: block;
+}
+
+.wrapper2{
+	height: calc( 100% - 60px);
+	width: 100%;
+	background: transparent;
+	display: none;
+	position: relative;
+}
+
+#box{
+	position: absolute;
+	top:200px;
+	left: 400px;
+	width: 298px;
+	height: 298px;
+	border: 1px solid rgba(242,242,242,0.8);
+	background: rgba(62,82,102,0.6);
+	text-align: center;
+	color: white;
+	font-family: helvetica;
+	font-size:1.5rem;
+	cursor: default;
+}
+#text-container {
+	width: calc(100% - 15px);
+	border-radius: 5px;
+	height: 100%;
+	float: left;
+	position: relative;
+	overflow: hidden;
+	z-index: 10;
+}
+
+article {
+	line-height: 3rem;
+	position: absolute;
+	top: 0;
+	padding: 50px;
+	text-indent: 40px;
+	color: #444F5A;
+}
+
+h1 {
+	text-align: center;
+	color: #F05941;
+}
+
+#scroll-wrapper {
+	height: 100%;
+	width: 15px;
+}
+
+.scrl-dirc {
+	height: 15px;
+	width: 15px;
+	border-radius: 2px;
+	background-size: cover;
+}
+
+.scrl-dirc:hover {
+	box-shadow: 0 0 1px 1px white;
+}
+
+#sclUp {
+	background-image: url(../img/up.png);
+}
+
+#sclDown {
+	background-image: url(../img/down.png);
+	position: absolute;
+	bottom: 0;
+}
+
+#scrollbar {
+	height: calc(100% - 30px);
+	width: 15px;
+	position: relative;
+	background-color: rgba(80, 80, 80, 0.2);
+	
+}
+#scroll-wrapper{
+	opacity: 0;
+	transition: opacity 0.3s;
+}
+#scroller {
+	position: absolute;
+	width: 15px;
+	height: 5%;
+	border-radius: 10px;
+	background: rgba(249, 249, 249, 0.7);
+}
+
+.fl {
+	float: left;
+}
